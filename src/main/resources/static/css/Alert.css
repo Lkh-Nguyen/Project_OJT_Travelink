@@ -1,0 +1,29 @@
+/* CSS thông báo */
+#status-message {
+    user-select: none;
+    position: fixed;
+    top: -130px; /* Ẩn ngoài màn hình */
+    right: -100px;
+    transform: translateX(-50%);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    transition: top 1s ease-in-out, opacity 0.5s ease-in-out; /* Hiệu ứng chuyển động */
+    z-index: 9999; /* Đảm bảo thông báo nằm trên cùng */
+}
+#status-message.show {
+    top: 20px; /* Vị trí hiển thị */
+    opacity: 1; /* Độ mờ khi hiển thị */
+}
+
+
+/*
+<div th:if="${message}" id="status-message" class="alert alert-danger" role="alert">
+    <i class='bx bxs-error-circle'></i>
+    <span th:text="${message}"></span>
+</div>
+
+<div th:if="${message}" id="status-message" class="alert alert-success" role="alert">
+    <i class='bx bxs-check-circle'  ></i>
+    <span th:text="${message}"></span>
+</div>
+*/
