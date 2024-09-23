@@ -13,7 +13,7 @@ import com.example.travelink.model.Account;
 import com.example.travelink.service.Customer_Service;
 
 @Controller
-public class Customer_Controller {
+public class CustomerController {
 
     @Autowired
     private Customer_Service customer_Service;

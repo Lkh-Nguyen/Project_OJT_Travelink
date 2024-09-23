@@ -8,13 +8,13 @@ import org.springframework.stereotype.Service;
 
 import com.example.travelink.dto.AccountDTO;
 import com.example.travelink.model.Account;
-import com.example.travelink.repository.Customer_Repository;
+import com.example.travelink.repository.CustomerRepository;
 
 @Service
 public class Customer_Service {
     
     @Autowired
-    private Customer_Repository account_Repository;
+    private CustomerRepository account_Repository;
 
 
     //get List Account
