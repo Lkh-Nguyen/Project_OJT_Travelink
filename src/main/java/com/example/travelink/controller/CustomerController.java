@@ -10,13 +10,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.travelink.dto.AccountDTO;
 import com.example.travelink.model.Account;
-import com.example.travelink.service.Customer_Service;
+import com.example.travelink.service.CustomerService;
 
 @Controller
 public class CustomerController {
 
     @Autowired
-    private Customer_Service customer_Service;
+    private CustomerService customer_Service;
 
 
     @GetMapping("/CustomerHome")

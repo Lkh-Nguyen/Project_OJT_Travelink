@@ -11,7 +11,7 @@ import com.example.travelink.model.Account;
 import com.example.travelink.repository.CustomerRepository;
 
 @Service
-public class Customer_Service {
+public class CustomerService {
     
     @Autowired
     private CustomerRepository account_Repository;
