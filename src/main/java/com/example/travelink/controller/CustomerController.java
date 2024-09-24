@@ -1,6 +1,8 @@
 package com.example.travelink.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +14,8 @@ import com.example.travelink.dto.AccountDTO;
 import com.example.travelink.model.Account;
 import com.example.travelink.service.CustomerService;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class CustomerController {
 
@@ -20,8 +24,13 @@ public class CustomerController {
 
 
     @GetMapping("/CustomerHome")
-    public String customerHome() {
-        return "Customer_Home"; // Trả về trang home sau khi login thành công
+    public String customerHome(HttpSession session, Model model) {
+        Account user = (Account) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/CustomerLoginRegister"; // Redirect if not logged in
+        }
+        model.addAttribute("user", user);
+        return "Customer_Home"; // Return the home view
     }
 
     @GetMapping("/CustomerLoginRegister")
@@ -50,12 +59,6 @@ public class CustomerController {
         return "Customer_Change_Password"; // Trả về trang home sau khi login thành công
     }
 
-
-    
-
-
-
-   
 
     // Xử lý đăng nhập
     @PostMapping("/Login")
@@ -101,4 +104,21 @@ public class CustomerController {
             return "Customer_LoginRegister";
         }
     }
+
+    @GetMapping("/OAuthCustomerHome")
+    public String getUserLoginByGmail(OAuth2AuthenticationToken authentication, Model model) {
+        
+        OAuth2User oauth2User = authentication.getPrincipal();
+        String provider = authentication.getAuthorizedClientRegistrationId(); //get provider
+
+        Account user = customer_Service.processOAuthPostLogin(oauth2User, provider);
+
+        // Add user attributes to the model
+        model.addAttribute("user", user);
+
+        // Return the view name
+        return "Customer_Home"; // This should correspond to home.html
+    }
+
+
 }
