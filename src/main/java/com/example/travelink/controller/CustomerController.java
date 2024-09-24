@@ -109,9 +109,8 @@ public class CustomerController {
     public String getUserLoginByGmail(OAuth2AuthenticationToken authentication, Model model) {
         
         OAuth2User oauth2User = authentication.getPrincipal();
-        String provider = authentication.getAuthorizedClientRegistrationId(); //get provider
 
-        Account user = customer_Service.processOAuthPostLogin(oauth2User, provider);
+        Account user = customer_Service.registerByOAuth(oauth2User);
 
         // Add user attributes to the model
         model.addAttribute("user", user);

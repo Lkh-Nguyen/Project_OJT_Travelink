@@ -56,7 +56,7 @@ public class CustomerService {
     }
 
     //register create google Account
-    public Account processOAuthPostLogin(OAuth2User oAuth2User, String provider) {
+    public Account registerByOAuth(OAuth2User oAuth2User) {
         //Get profile user
         String email = oAuth2User.getAttribute("email");
         String name = oAuth2User.getAttribute("name");
