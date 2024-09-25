@@ -58,11 +58,11 @@
               <img th:src="${user.avatarUrl}" alt="User Avatar" class="rounded-circle"
                 style="width: 40px; height: 40px;">
               <span th:text="${user.name}" class="ms-2"></span>
-              <span th:text="${user.email}" class="ms-2"></span>
+              <!-- <span th:text="${user.email}" class="ms-2"></span> -->
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
               <li>
-                <a class="dropdown-item" href="CustomerViewInformation">
+                <a class="dropdown-item" href="/CustomerViewInformation">
                   <i class="ri-user-line"></i> <!-- Icon profile -->
                   Profile
                 </a>
