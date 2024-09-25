@@ -43,11 +43,11 @@ public class Account {
     @Column(name = "Gender") // Giới tính
     private String gender;
 
-    @Column(name = "DateOfBirth")
-    private Date dateOfBirth;
+    @Column(name = "Date_Of_Birth")
+    private Date date_Of_Birth;
 
-    @Column(name = "PhoneNumber")
-    private String phoneNumber;
+    @Column(name = "Phone_Number")
+    private String phone_Number;
 
     @Column(name = "AvatarURL")
     private String avatarUrl;

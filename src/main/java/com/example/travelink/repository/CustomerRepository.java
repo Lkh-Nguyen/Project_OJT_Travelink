@@ -14,6 +14,6 @@ public interface CustomerRepository extends JpaRepository<Account,Integer> {
     //get List Account by role
     List<Account> findByRole(int role);
     Account findByEmail(String email);
-
+    // Account findById(int accountId);
     
 }

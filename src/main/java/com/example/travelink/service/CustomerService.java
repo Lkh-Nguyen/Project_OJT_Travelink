@@ -41,7 +41,7 @@ public class CustomerService {
         //tạo đối tượng account mới
         Account account =  new Account();
         account.setName(accountDTO.getName());
-        account.setPhoneNumber(accountDTO.getPhone());
+        account.setPhone_Number(accountDTO.getPhone());
         account.setEmail(accountDTO.getEmail());
         account.setPassword(accountDTO.getPassword());
         account.setStatus(1);
