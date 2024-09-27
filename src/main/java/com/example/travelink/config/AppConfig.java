@@ -16,13 +16,22 @@ public class AppConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http
-        //Create config of webpage
-        .authorizeHttpRequests(requests -> requests
-                .requestMatchers("/", "/CustomerLoginRegister", "/css/**").permitAll()
-                .anyRequest().authenticated())
+                //Create config of webpage
+                .authorizeHttpRequests(requests -> requests
+                        // .requestMatchers("/", "/CustomerLoginRegister", "/css/**", "/UploadImageAvatar", "/CustomerViewAvatar","/CustomerUpdateAvatar","/hello").permitAll()
+                        .anyRequest().permitAll())
+                .csrf(csrf -> csrf.disable())
                 .formLogin(login -> login
                         .loginPage("/CustomerLoginRegister")
                         .defaultSuccessUrl("/CustomerHome", true))
+                // Cho phép tất cả các yêu cầu mà không bị chặn
+                .authorizeHttpRequests(requests -> requests
+                        .anyRequest().permitAll())
+                
+                // Tắt CSRF (nếu không cần)
+                .csrf(csrf -> csrf.disable())
+                
+                // Cấu hình form login cho OAuth2
                 .oauth2Login(login -> login
                         .loginPage("/CustomerLoginRegister")
                         .defaultSuccessUrl("/OAuthCustomerHome", true));

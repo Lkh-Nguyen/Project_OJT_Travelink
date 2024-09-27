@@ -1,202 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cài Đặt</title>
-    <link rel="stylesheet" href="css/Customer_View_Information.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css"
-    />
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-    <link rel="stylesheet" href="css/Customer_Home.css" />
-    <link
-      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
-      rel="stylesheet"
-    />
-  </head>
 
-  <body>
-    <!-- Include Header -->
-    <div th:replace="Customer_Header :: header"></div>
-    <div class="container">
-      <div class="row">
-        <!-- Sidebar -->
-        <div class="col-md-3 p-4">
-          <div class="profile-section text-center">
-            <img
-              src="https://inkythuatso.com/uploads/thumbnails/800/2023/03/9-anh-dai-dien-trang-inkythuatso-03-15-27-03.jpg"
-              class="rounded-circle"
-              alt="Profile Picture"
-            />
-            <h5 class="mt-2">Le Kim Hoang Nguyen</h5>
-            <p>Lkhnguyen3006@gmail.com</p>
-          </div>
-          <ul class="list-group mt-4">
-            <li class="list-group-item">
-              <a
-                href="CustomerViewInformation"
-                class="text-decoration-none text-dark"
-                ><i class="bx bx-cog me-2"></i>My Account</a
-              >
-            </li>
-            <li class="list-group-item active">
-              <a href="#" class="text-decoration-none text-light"
-                ><i class="bx bx-image-add me-2"></i>View Avatar</a
-              >
-            </li>
-            <li class="list-group-item">
-              <a href="dat-cho.html" class="text-decoration-none text-dark"
-                ><i class="bx bx-notepad me-2"></i>My Booking</a
-              >
-            </li>
-            <li class="list-group-item">
-              <a href="hanh-khach.html" class="text-decoration-none text-dark"
-                ><i class="bx bx-heart-circle me-2"></i> Favourite Hotel</a
-              >
-            </li>
-            <li class="list-group-item">
-              <a href="khuyen-mai.html" class="text-decoration-none text-dark"
-                ><i class="bx bx-calendar me-2"></i>My Feedback</a
-              >
-            </li>
-            <li class="list-group-item">
-              <a href="yeu-thich.html" class="text-decoration-none text-dark"
-                >Danh sách yêu thích</a
-              >
-            </li>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cài Đặt</title>
+  <link rel="stylesheet" href="css/Customer_View_Information.css" />
+  <link rel="stylesheet" href="css/Alert.css" />
 
-            <li class="list-group-item">
-              <a href="dang-xuat.html" class="text-decoration-none text-dark"
-                ><i class="bx bx-log-out me-2"></i>Logout out</a
-              >
-            </li>
-          </ul>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  <link rel="stylesheet" href="css/Customer_Home.css" />
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+</head>
+
+<body>
+  <!-- Include Header -->
+  <div th:replace="Customer_Header :: header"></div>
+
+  <div th:if="${messageSuccess}" id="status-message" class="alert alert-success" role="alert">
+    <i class="bx bxs-check-circle"></i>
+    <span th:text="${messageSuccess}"></span>
+  </div>
+
+  <div th:if="${messageFail}" id="status-message" class="alert alert-success" role="alert">
+    <i class="bx bxs-check-circle"></i>
+    <span th:text="${messageFail}"></span>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <!-- Sidebar -->
+      <div class="col-md-3 p-4">
+        <div class="profile-section text-center">
+          <img th:src="${customer.avatarUrl}" class="rounded-circle" alt="Profile Picture" />
+          <h5 class="mt-2"><span th:text="${customer.name}"></span></h5>
+          <p><span th:text="${customer.email}"></span></p>
         </div>
+        <ul class="list-group mt-4">
+          <li class="list-group-item">
+            <a href="CustomerViewInformation" class="text-decoration-none text-dark"><i class="bx bx-cog me-2"></i>My
+              Account</a>
+          </li>
+          <li class="list-group-item active">
+            <a href="#" class="text-decoration-none text-light"><i class="bx bx-image-add me-2"></i>View Avatar</a>
+          </li>
+          <li class="list-group-item">
+            <a href="dat-cho.html" class="text-decoration-none text-dark"><i class="bx bx-notepad me-2"></i>My
+              Booking</a>
+          </li>
+          <li class="list-group-item">
+            <a href="hanh-khach.html" class="text-decoration-none text-dark"><i class="bx bx-heart-circle me-2"></i>
+              Favourite Hotel</a>
+          </li>
+          <li class="list-group-item">
+            <a href="khuyen-mai.html" class="text-decoration-none text-dark"><i class="bx bx-calendar me-2"></i>My
+              Feedback</a>
+          </li>
+          <li class="list-group-item">
+            <a href="yeu-thich.html" class="text-decoration-none text-dark">Danh sách yêu thích</a>
+          </li>
 
-        <!-- Main Content -->
-        <div class="col-md-9 p-4">
-          <h4>My Avatar</h4>
+          <li class="list-group-item">
+            <a href="dang-xuat.html" class="text-decoration-none text-dark"><i class="bx bx-log-out me-2"></i>Logout
+              out</a>
+          </li>
+        </ul>
+      </div>
 
-          <div class="row justify-content-center">
-            <div class="col-md-12">
-              <div class="card">
-                <div class="card-body text-center">
-                  <div class="profile-section text-center">
-                    <p th:text="${imageUrl}"></p>
-                    <!-- Nếu imageUrl là null thì hiển thị ảnh mặc định -->
-                    <img
-                      th:if="${imageUrl == null}"
-                      src="https://inkythuatso.com/uploads/thumbnails/800/2023/03/9-anh-dai-dien-trang-inkythuatso-03-15-27-03.jpg"
-                      class="rounded-circle"
-                      alt="Profile Picture"
-                      style="width: 200px; height: 200px"
-                    />
+      <!-- Main Content -->
+      <div class="col-md-9 p-4">
+        <h4>My Avatar</h4>
 
-                    <!-- Nếu imageUrl không null thì hiển thị ảnh upload -->
-                    <img
-                      th:if="${imageUrl != null}"
-                      th:src="${imageUrl}"
-                      class="rounded-circle"
-                      alt="Uploaded Profile Picture"
-                      style="
+        <div class="row justify-content-center">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-body text-center">
+
+
+                <div class="profile-section text-center">
+                  <!-- Nếu imageUrl là null thì hiển thị ảnh mặc định -->
+                  <img th:if="${imageUrl == null}" th:src="${customer.avatarUrl}" class="rounded-circle"
+                    alt="Profile Picture" style="width: 200px; height: 200px; border: 3px solid grey" />
+
+                  <!-- Nếu imageUrl không null thì hiển thị ảnh upload -->
+                  </p>
+                  <img th:if="${imageUrl != null}" th:src="${imageUrl}" class="rounded-circle"
+                    alt="Uploaded Profile Picture" style="
                         width: 200px;
                         height: 200px;
-                        border: 1px solid black;
-                      "
-                    />
-                  </div>
-                  <div class="row">
-                    <div class="col-md-3"></div>
-                    <form
-                      class="col-md-6 mt-3"
-                      method="post"
-                      action="UploadImageAvatar"
-                      enctype="multipart/form-data"
-                      onsubmit="return validateForm(event)"
-                    >
-                      <div class="mb-1">
-                        <input
-                          class="form-control"
-                          type="file"
-                          id="avatarUpload"
-                          name="file"
-                          accept=".jpg, .jpeg, .png"
-                        />
-                        <div id="fileHelp" class="form-text">
-                          Maximum file size is 1 MB.<br />
-                          Format: JPEG, PNG
-                        </div>
-                      </div>
-                      <div id="error-message" style="display: none; color: red">
-                        Please select a file to upload.
-                      </div>
-                      <input
-                        id="submit_Input"
-                        class="btn btn-primary"
-                        type="submit"
-                        value="Upload"
-                      />
-                    </form>
-                    <div class="col-md-3"></div>
-                  </div>
-                  <form>
-                    <div class="pd_button" style="text-align: end">
-                      <!-- Cancel button -->
-                      <button
-                        type="button"
-                        id="cancelBtn"
-                        class="btn btn-secondary"
-                        style="width: 120px; border-radius: 10px"
-                        disabled
-                      >
-                        Cancel
-                      </button>
-                      <!-- Save button -->
-                      <input
-                        type="submit"
-                        id="saveBtn"
-                        class="btn btn-primary"
-                        style="width: 120px; border-radius: 10px"
-                        value="Save"
-                        disabled
-                      />
-                    </div>
-                  </form>
+                        border: 3px solid grey" />
                 </div>
+
+
+                <!--Upload File-->
+                <div class="row">
+                  <div class="col-md-3"></div>
+                  <form class="col-md-6 mt-3" method="post" action="UploadImageAvatar" enctype="multipart/form-data"
+                    onsubmit="return validateForm(event)">
+                    <div class="mb-1">
+                      <input class="form-control" type="file" id="avatarUpload" name="file"
+                        accept=".jpg, .jpeg, .png" />
+                      <div id="fileHelp" class="form-text">
+                        Maximum file size is 1 MB.<br />
+                        Format: JPEG, PNG
+                      </div>
+                    </div>
+                    <div id="error-message" style="display: none; color: red">
+                      Please select a file to upload.
+                    </div>
+                    <input id="submit_Input" class="btn btn-primary" type="submit" value="Upload" />
+                  </form>
+                  <div class="col-md-3"></div>
+                </div>
+
+
+                <!--Update Avatar-->
+                <form method="post" action="CustomerUpdateAvatar">
+                  <div class="pd_button" style="text-align: end">
+                    <input type="hidden" th:value="${imageUrl}" name="imageUrl" />
+                    <!-- Cancel button -->
+                    <button type="button" id="cancelBtn" class="btn btn-secondary"
+                      style="width: 120px; border-radius: 10px" th:disabled="${imageUrl == null}"
+                      onclick="location.reload()">
+                      Cancel
+                    </button>
+                    <!-- Save button -->
+                    <input type="submit" id="saveBtn" class="btn btn-primary" style="width: 120px; border-radius: 10px"
+                      value="Save" th:disabled="${imageUrl == null}" />
+                  </div>
+                </form>
+
+
+
+
               </div>
             </div>
           </div>
-          <hr />
         </div>
+        <hr />
       </div>
     </div>
+  </div>
 
-    <!-- Include footer -->
-    <div th:replace="Customer_Footer :: footer"></div>
-    <script src="js/Customer_View_Information.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-      function validateForm(event) {
-        var fileInput = document.querySelector('input[type="file"]');
-        var errorMessage = document.getElementById("error-message");
-        var data_img = document.getElementById("data_img");
-        if (!fileInput.value) {
-          errorMessage.style.display = "block";
-          return false;
-        }
-        errorMessage.style.display = "none";
-        return true;
+  <!-- Include footer -->
+  <div th:replace="Customer_Footer :: footer"></div>
+  <script src="js/Customer_View_Information.js"></script>
+  <script src="js/Alert.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    function validateForm(event) {
+      var fileInput = document.querySelector('input[type="file"]');
+      var errorMessage = document.getElementById("error-message");
+      var data_img = document.getElementById("data_img");
+      if (!fileInput.value) {
+        errorMessage.style.display = "block";
+        return false;
       }
-    </script>
-  </body>
+      errorMessage.style.display = "none";
+      return true;
+    }
+  </script>
+</body>
+
 </html>

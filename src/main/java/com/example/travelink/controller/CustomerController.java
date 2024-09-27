@@ -1,15 +1,22 @@
 package com.example.travelink.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.travelink.dto.AccountDTO;
 import com.example.travelink.model.Account;
+import com.example.travelink.model.VerificationToken;
 import com.example.travelink.service.CustomerService;
+import com.example.travelink.service.MailService;
+import com.example.travelink.service.VerificationTokenService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -17,16 +24,21 @@ import jakarta.servlet.http.HttpSession;
 public class CustomerController {
 
     @Autowired
-    private CustomerService customer_Service;
-
+    private CustomerService customerService;
+    @Autowired
+    private MailService mailService;
+    @Autowired
+    private VerificationTokenService verificationTokenService;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping("/CustomerHome")
     public String customerHome(HttpSession session, Model model) {
-        Account user = (Account) session.getAttribute("user");
-        if (user == null) {
+        Account customer = (Account) session.getAttribute("customer");
+        if (customer == null) {
             return "redirect:/CustomerLoginRegister"; // Redirect if not logged in
         }
-        model.addAttribute("user", user);
+        model.addAttribute("customer", customer);
         return "Customer_Home"; // Return the home view
     }
 
@@ -40,22 +52,9 @@ public class CustomerController {
         return "Customer_Forget_Password"; // Trả về trang home sau khi login thành công
     }
 
-
     @GetMapping("/CustomerVerifyCode")
     public String customerVerifyCode() {
         return "Customer_Verify_Code"; // Trả về trang home sau khi login thành công
-    }
-
-    @GetMapping("/CustomerViewInformation")
-    public String customerViewInformation(RedirectAttributes redirectAttributes, HttpSession session) {
-        Account account = (Account) session.getAttribute("user");
-
-        if(account == null) {
-            return "redirect:/CustomerLoginRegister";
-        }
-
-        redirectAttributes.addFlashAttribute("user", account);
-        return "Customer_View_Information"; // Trả về trang home sau khi login thành công
     }
 
     @GetMapping("/CustomerChangePassword")
@@ -63,66 +62,87 @@ public class CustomerController {
         return "Customer_Change_Password"; // Trả về trang home sau khi login thành công
     }
 
-
-    // // Xử lý đăng nhập
-    // @PostMapping("/Login")
-    // public String getCustomerByEmail(@RequestParam("email") String email, 
-    //                                  @RequestParam("password") String password, 
-    //                                  RedirectAttributes redirectAttributes) {
-    //     Account account = customer_Service.getCustomerByEmail(email);
-        
-    //     if (account != null) {
-    //         if (account.getPassword().equals(password)) {
-    //             redirectAttributes.addFlashAttribute("message", "User tồn tại. Login thành công.");
-    //             return "redirect:/Home";  // Chuyển hướng tới trang home
-    //         } else {
-    //             redirectAttributes.addFlashAttribute("message", "Mật khẩu sai rồi. Nhập lại.");
-    //             return "redirect:/Login";  // Quay lại trang login nếu sai mật khẩu
-    //         }
-    //     } else {
-    //         redirectAttributes.addFlashAttribute("message", "Email chưa được đăng ký.");
-    //         return "redirect:/Login";  // Quay lại trang login nếu email không tồn tại
-    //     }
-    // }
-
-    // @PostMapping("/Register")
-    // public String registerAccount(
-    //     @RequestParam("name") String name,
-    //     @RequestParam("phone") String phone,
-    //     @RequestParam("email") String email,
-    //     @RequestParam("password") String password,
-    //     Model model
-    // ) {
-    //     try {
-    //         AccountDTO accountDTO = new AccountDTO();
-    //         accountDTO.setName(name);
-    //         accountDTO.setPhone(phone);
-    //         accountDTO.setEmail(email);
-    //         accountDTO.setPassword(password); // Sẽ được mã hóa trong service
-
-    //         customer_Service.registerNewCustomer(accountDTO);
-    //         model.addAttribute("message","Create thành công");
-    //         return "Customer_LoginRegister";
-    //     } catch (Exception e) {
-    //         model.addAttribute("message","Create thất bại");
-    //         return "Customer_LoginRegister";
-    //     }
-    // }
-
     @GetMapping("/OAuthCustomerHome")
-    public String getUserLoginByGmail(OAuth2AuthenticationToken authentication, Model model) {
-        
+    public String getUserLoginByGmail(OAuth2AuthenticationToken authentication, Model model, HttpSession session) {
+
         OAuth2User oauth2User = authentication.getPrincipal();
 
-        Account user = customer_Service.registerByOAuth(oauth2User);
+        Account account = customerService.registerByOAuth(oauth2User);
 
-        // Add user attributes to the model
-        model.addAttribute("user", user);
+        session.setAttribute("customer", account);
 
+        model.addAttribute("customer", account);
         // Return the view name
         return "Customer_Home"; // This should correspond to home.html
     }
 
-    
+    @PostMapping("/login")
+    public String getCustomerByEmail(@RequestParam("email") String email,
+            @RequestParam("password") String password,
+            RedirectAttributes redirectAttributes) {
+        Account account = customerService.getCustomerByEmail(email);
 
+        if (account != null) {
+            if (account.getPassword().equals(password)) {
+                redirectAttributes.addFlashAttribute("message", "User tồn tại. Login thành công.");
+                return "redirect:/CustomerHome"; // Chuyển hướng tới trang home
+            } else {
+                redirectAttributes.addFlashAttribute("message", "Mật khẩu sai rồi. Nhập lại.");
+                return "redirect:/CustomerLoginRegister"; // Quay lại trang login nếu sai mật khẩu
+            }
+        } else {
+            redirectAttributes.addFlashAttribute("message", "Email chưa được đăng ký.");
+            return "redirect:/CustomerLoginRegister"; // Quay lại trang login nếu email không tồn tại
+        }
+    }
+
+    @PostMapping("/register")
+    public String registerAccount(
+            @RequestParam("name") String name,
+            @RequestParam("phone") String phone,
+            @RequestParam("email") String email,
+            @RequestParam("password") String password,
+            Model model) {
+
+        try {
+            AccountDTO accountDTO = new AccountDTO();
+            accountDTO.setName(name);
+            accountDTO.setPhone(phone);
+            accountDTO.setEmail(email);
+            accountDTO.setPassword(passwordEncoder.encode(password));
+
+            Account account = customerService.registerNewCustomer(accountDTO);
+
+            // Generate a verification token
+            VerificationToken token = verificationTokenService.createVerificationToken(account);
+
+            // Send verification email
+            String verificationUrl = "http://localhost:8080/verify?token=" + token.getToken();
+            mailService.sendHtmlMail(account.getEmail(), "Email Verification", verificationUrl);
+
+            model.addAttribute("message",
+                    "Account created successfully. Please check your email to verify your account.");
+            return "Customer_Login_Register";
+        } catch (Exception e) {
+            model.addAttribute("message", "Account creation failed.");
+            return "Customer_Login_Register";
+        }
+    }
+
+    @GetMapping("/verify")
+    public String verifyAccount(@RequestParam("token") String token, Model model) {
+        VerificationToken verificationToken = verificationTokenService.findByToken(token);
+
+        if (verificationToken == null) {
+            model.addAttribute("message", "Invalid verification token.");
+            return "error";
+        }
+
+        Account account = verificationToken.getAccount();
+        account.setStatus(1); // Activate the account
+        customerService.saveAccount(account); // Save the updated account
+
+        model.addAttribute("message", "Account verified successfully!");
+        return "Customer_Login_Register";
+    }
 }

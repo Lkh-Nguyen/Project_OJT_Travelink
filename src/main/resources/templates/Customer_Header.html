@@ -52,12 +52,12 @@
               <a class="nav-link" href="#blog">Blog</a>
             </li>
           </ul>
-          <div class="navbar-text ms-lg-3 dropdown" th:if="${user != null}">
+          <div class="navbar-text ms-lg-3 dropdown" th:if="${customer != null}">
             <a href="#" class="d-flex align-items-center" id="userDropdown" role="button" data-bs-toggle="dropdown"
               aria-expanded="false">
-              <img th:src="${user.avatarUrl}" alt="User Avatar" class="rounded-circle"
+              <img th:src="${customer.avatarUrl}" alt="Customer Avatar" class="rounded-circle"
                 style="width: 40px; height: 40px;">
-              <span th:text="${user.name}" class="ms-2"></span>
+              <span th:text="${customer.name}" class="ms-2"></span>
               <!-- <span th:text="${user.email}" class="ms-2"></span> -->
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
@@ -75,7 +75,12 @@
               </li>
             </ul>
           </div>
-          <a href="CustomerLoginRegister" class="btn btn-brand ms-lg-3">Get Started</a>
+          <div th:if="${customer != null}">
+            <button class="btn btn-brand ms-lg-3" disabled>Logged</button>
+          </div>
+          <div th:if="${customer == null}">
+            <a href="CustomerLoginRegister" class="btn btn-brand ms-lg-3">Get Started</a>
+          </div>
         </div>
       </div>
     </nav>
