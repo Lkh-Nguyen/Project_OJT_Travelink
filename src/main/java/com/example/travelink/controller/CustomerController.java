@@ -57,10 +57,6 @@ public class CustomerController {
         return "Customer_Verify_Code"; // Trả về trang home sau khi login thành công
     }
 
-    @GetMapping("/CustomerChangePassword")
-    public String customerChangePassword() {
-        return "Customer_Change_Password"; // Trả về trang home sau khi login thành công
-    }
 
     @GetMapping("/OAuthCustomerHome")
     public String getUserLoginByGmail(OAuth2AuthenticationToken authentication, Model model, HttpSession session) {

@@ -24,13 +24,6 @@ public class AppConfig {
                 .formLogin(login -> login
                         .loginPage("/CustomerLoginRegister")
                         .defaultSuccessUrl("/CustomerHome", true))
-                // Cho phép tất cả các yêu cầu mà không bị chặn
-                .authorizeHttpRequests(requests -> requests
-                        .anyRequest().permitAll())
-                
-                // Tắt CSRF (nếu không cần)
-                .csrf(csrf -> csrf.disable())
-                
                 // Cấu hình form login cho OAuth2
                 .oauth2Login(login -> login
                         .loginPage("/CustomerLoginRegister")
