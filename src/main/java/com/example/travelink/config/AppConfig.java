@@ -23,7 +23,12 @@ public class AppConfig {
                 .csrf(csrf -> csrf.disable())
                 .formLogin(login -> login
                         .loginPage("/CustomerLoginRegister")
-                        .defaultSuccessUrl("/CustomerHome", true));
+                        .defaultSuccessUrl("/CustomerHome", true))
+                // Cấu hình form login cho OAuth2
+                .oauth2Login(login -> login
+                        .loginPage("/CustomerLoginRegister")
+                        .defaultSuccessUrl("/OAuthCustomerHome", true));
+
         return http.build();
     }
 
