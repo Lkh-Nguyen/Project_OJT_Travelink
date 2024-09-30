@@ -4,7 +4,6 @@ package com.example.travelink.service;
 import java.security.SecureRandom;
 import java.util.List;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
@@ -19,8 +18,6 @@ import lombok.AllArgsConstructor;
 public class CustomerService {
     
     private final CustomerRepository customerRepository;
-    private final PasswordEncoder passwordEncoder;
-
 
     //get List Account
     public List<Account> getAllAccount(){
@@ -87,12 +84,12 @@ public class CustomerService {
         Account newAccount = new Account();
         newAccount.setEmail(email);
         newAccount.setName(name);
-        newAccount.setPassword(passwordEncoder.encode(generateRandomPassword()));
-        newAccount.setCmnd("DefaultCMND");
+        newAccount.setPassword(generateRandomPassword());
+        newAccount.setCmnd(null);
         newAccount.setGender("M");
         newAccount.setDateOfBirth(null);
         newAccount.setAvatarUrl(picture);
-        newAccount.setPhoneNumber("DefaultPhone");
+        newAccount.setPhoneNumber(null);
         newAccount.setAddress(null);
         newAccount.setRole(1); // 1: User, 0: Admin
         newAccount.setStatus(1); // 1: Active

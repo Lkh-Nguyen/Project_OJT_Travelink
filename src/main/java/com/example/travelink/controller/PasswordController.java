@@ -7,17 +7,12 @@ import com.example.travelink.service.CustomerService;
 import jakarta.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class PasswordController {
-   
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private CustomerService customer_Service;
@@ -52,9 +47,6 @@ public class PasswordController {
 
 
         //Kiểm tra mật khẩu cũ có đúng không
-        if (!passwordEncoder.matches(password, customer.getPassword())) {
-            return "Password incorrect";
-        }
 
         // Kiểm tra mật khẩu mới có khớp nhau không
         if (!new_password.equals(new_again_password)) {
@@ -62,9 +54,8 @@ public class PasswordController {
         }
 
         // Mã hóa mật khẩu mới trước khi lưu
-        String encodedNewPassword = passwordEncoder.encode(new_password);
         if (customer != null){
-            customer.setPassword(encodedNewPassword);
+            customer.setPassword(new_password);
             customer_Service.updateCustomerInformation(customer);
             httpSession.setAttribute("customer", customer);
         }

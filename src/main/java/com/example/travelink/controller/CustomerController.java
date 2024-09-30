@@ -110,7 +110,7 @@ public class CustomerController {
             accountDTO.setName(name);
             accountDTO.setPhone(phone);
             accountDTO.setEmail(email);
-            accountDTO.setPassword(passwordEncoder.encode(password));
+            accountDTO.setPassword(password);
 
             Account account = customerService.registerNewCustomer(accountDTO);
 
