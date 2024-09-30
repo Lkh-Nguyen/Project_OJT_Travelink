@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -53,23 +54,36 @@ public class PasswordController {
 
         //Kiểm tra mật khẩu cũ có đúng không
         if (!passwordEncoder.matches(password, customer.getPassword())) {
-            return "Password incorrect";
+            return "redirect:/CustomerChangePassword";
         }
 
         // Kiểm tra mật khẩu mới có khớp nhau không
         if (!new_password.equals(new_again_password)) {
             return "redirect:/CustomerChangePassword";
-        }
-
-        // Mã hóa mật khẩu mới trước khi lưu
-        String encodedNewPassword = passwordEncoder.encode(new_password);
-        if (customer != null){
+        } else {
+            // Mã hóa mật khẩu mới trước khi lưu
+            String encodedNewPassword = passwordEncoder.encode(new_password);
+            if (customer != null){
             customer.setPassword(encodedNewPassword);
             customer_Service.updateCustomerInformation(customer);
             httpSession.setAttribute("customer", customer);
         }
+        }
+
+        
         
         // Thông báo thành công
         return "redirect:/CustomerChangePassword";
+    }
+     public static void main(String[] args) {
+        String hashedPassword = "$2a$10$ux/KM81k.EHDcqzO4hxqK.FoxS6qR1zppilBVngybc5xnrjp4/M8O";
+        String rawPassword = "12345678"; // Replace with the actual password you want to check
+
+        // Validate the password
+        if (BCrypt.checkpw(rawPassword, hashedPassword)) {
+            System.out.println("Password matches!");
+        } else {
+            System.out.println("Invalid password.");
+        }
     }
 }
