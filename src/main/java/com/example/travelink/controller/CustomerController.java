@@ -44,19 +44,18 @@ public class CustomerController {
 
     @GetMapping("/CustomerLoginRegister")
     public String customerLoginRegister() {
-        return "Customer_Login_Register"; // Trả về trang home sau khi login thành công
+        return "Customer_Login_Register"; // Trả về trang login/register
     }
 
     @GetMapping("/CustomerForgetPassword")
     public String customerForgetPassword() {
-        return "Customer_Forget_Password"; // Trả về trang home sau khi login thành công
+        return "Customer_Forget_Password"; // Trả về trang quên mật khẩu
     }
 
     @GetMapping("/CustomerVerifyCode")
     public String customerVerifyCode() {
-        return "Customer_Verify_Code"; // Trả về trang home sau khi login thành công
+        return "Customer_Verify_Code"; // Trả về trang xác minh mã
     }
-
 
     @GetMapping("/OAuthCustomerHome")
     public String getUserLoginByGmail(OAuth2AuthenticationToken authentication, Model model, HttpSession session) {
@@ -73,22 +72,28 @@ public class CustomerController {
     }
 
     @PostMapping("/login")
-    public String getCustomerByEmail(@RequestParam("email") String email,
+    public String getCustomerByEmail(
+            @RequestParam("email") String email,
             @RequestParam("password") String password,
+            HttpSession session,
             RedirectAttributes redirectAttributes) {
+        
         Account account = customerService.getCustomerByEmail(email);
 
         if (account != null) {
-            if (account.getPassword().equals(password)) {
-                redirectAttributes.addFlashAttribute("message", "User tồn tại. Login thành công.");
+            // Sử dụng passwordEncoder để so sánh mật khẩu
+            if (passwordEncoder.matches(password, account.getPassword())) {
+                // Lưu thông tin khách hàng vào session
+                session.setAttribute("customer", account);
+                redirectAttributes.addFlashAttribute("message", "Đăng nhập thành công.");
                 return "redirect:/CustomerHome"; // Chuyển hướng tới trang home
             } else {
-                redirectAttributes.addFlashAttribute("message", "Mật khẩu sai rồi. Nhập lại.");
-                return "redirect:/CustomerLoginRegister"; // Quay lại trang login nếu sai mật khẩu
+                redirectAttributes.addFlashAttribute("message", "Mật khẩu sai. Vui lòng thử lại.");
+                return "redirect:/CustomerLoginRegister"; // Quay lại trang đăng nhập nếu sai mật khẩu
             }
         } else {
             redirectAttributes.addFlashAttribute("message", "Email chưa được đăng ký.");
-            return "redirect:/CustomerLoginRegister"; // Quay lại trang login nếu email không tồn tại
+            return "redirect:/CustomerLoginRegister"; // Quay lại trang đăng nhập nếu email không tồn tại
         }
     }
 
