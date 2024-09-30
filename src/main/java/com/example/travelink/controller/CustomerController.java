@@ -82,7 +82,7 @@ public class CustomerController {
 
         if (account != null) {
             // Sử dụng passwordEncoder để so sánh mật khẩu
-            if (passwordEncoder.matches(password, account.getPassword())) {
+            if (password.equalsIgnoreCase(account.getPassword())) {
                 // Lưu thông tin khách hàng vào session
                 session.setAttribute("customer", account);
                 redirectAttributes.addFlashAttribute("message", "Đăng nhập thành công.");

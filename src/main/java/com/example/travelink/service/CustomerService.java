@@ -84,7 +84,7 @@ public class CustomerService {
         Account newAccount = new Account();
         newAccount.setEmail(email);
         newAccount.setName(name);
-        newAccount.setPassword(generateRandomPassword());
+        newAccount.setPassword(null);
         newAccount.setCmnd(null);
         newAccount.setGender("M");
         newAccount.setDateOfBirth(null);

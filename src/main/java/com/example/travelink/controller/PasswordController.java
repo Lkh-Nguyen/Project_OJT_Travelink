@@ -55,7 +55,7 @@ public class PasswordController {
 
         // Mã hóa mật khẩu mới trước khi lưu
         if (customer != null){
-            customer.setPassword(new_password);
+            customer.setPassword(new_again_password);
             customer_Service.updateCustomerInformation(customer);
             httpSession.setAttribute("customer", customer);
         }
