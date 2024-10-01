@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+
+</html>
 
 <head>
   <meta charset="UTF-8" />
@@ -22,9 +24,9 @@
       <!-- Sidebar -->
       <div class="col-md-3 p-4">
         <div class="profile-section text-center">
-          <img src="https://via.placeholder.com/80" class="rounded-circle" alt="Profile Picture" />
-          <h5 class="mt-2">Le Kim Hoang Nguyen</h5>
-          <p>Lkhnguyen3006@gmail.com</p>
+          <img th:src="${customer.avatarUrl}" class="rounded-circle" alt="Profile Picture" />
+          <h5 class="mt-2" th:text="${customer.name}"></h5>
+          <p th:text="${customer.email}"></p>
         </div>
         <ul class="list-group mt-4">
           <li class="list-group-item active">
@@ -76,26 +78,28 @@
         </ul>
 
         <!-- Form -->
-        <!-- Form -->
-        <form id="myForm" action="#" th:action="@{/UpdateInformationCustomer}" th:object="${account}" method="post">
+
+
+        <form id="myForm" th:action="@{/UpdateInformationCustomer}" method="post">
           <div class="row mb-3">
             <!-- Account ID -->
-            <input type="hidden" th:field="*{accountId}" />
+            <!-- <input type="hidden" th:value="${customer.avatarUrl}"> -->
+            <input type="hidden" th:value="${customer.accountId}" />
 
             <!-- Full Name -->
             <div class="col-md-6">
               <label for="fullName" class="form-label">Name</label>
-              <input type="text" class="form-control" placeholder="Enter Full Name In Here" name="name"
-                th:field="*{name}" required />
+              <input type="text" class="form-control" placeholder="Enter Full Name In Here" th:value="${customer.name}"
+                name="name"  />
             </div>
 
             <!-- Gender -->
             <div class="col-md-6">
               <label for="gender" class="form-label">Gender</label>
-              <select class="form-select" name="gender" th:field="*{gender}">
-                <option value="F" th:selected="${account.gender == 'Female'}">Female</option>
-                <option value="M" th:selected="${account.gender == 'Male'}">Male</option>
-                <option value="O" th:selected="${account.gender == 'Other'}">Other</option>
+              <select class="form-select" name="gender" th:value="${customer.gender}">
+                <option value="F" th:selected="${customer.gender == 'Female'}">Female</option>
+                <option value="M" th:selected="${customer.gender == 'Male'}">Male</option>
+                <option value="O" th:selected="${customer.gender == 'Other'}">Other</option>
               </select>
             </div>
           </div>
@@ -104,57 +108,50 @@
             <!-- Birthdate -->
             <div class="col-md-6">
               <label for="birthdate" class="form-label">Birthdate</label>
-              <input type="date" class="form-control" name="dateOfBirth" th:field="*{dateOfBirth}" required />
+              <input type="date" class="form-control" name="dateOfBirth"  th:value="${customer.dateOfBirth}"  />
             </div>
 
 
             <!-- CMND -->
             <div class="col-md-6">
               <label for="cmnd" class="form-label">CMND</label>
-              <input type="text" class="form-control" name="cmnd" placeholder="Enter CMND In Here" th:field="*{cmnd}"
-                required />
+              <input type="text" class="form-control" name="cmnd" placeholder="Enter CMND In Here"   th:value="${customer.cmnd}"
+                 />
             </div>
           </div>
 
           <div class="row mb-3">
-            <!-- Phone Number -->
             <div class="col-md-6">
               <label for="phone" class="form-label">Phone Number</label>
               <input type="text" class="form-control" name="phoneNumber" placeholder="Enter Phone Number In Here"
-                th:field="*{phoneNumber}" required />
+              th:value="${customer.phoneNumber}"  />
             </div>
 
-            <!-- Email -->
             <div class="col-md-6">
               <label for="email" class="form-label">Email</label>
               <input type="email" class="form-control" name="email" placeholder="Enter Email In Here"
-                th:field="*{email}" required />
-              <div th:if="${error}" th:text="${error}" style="color: red;"></div>
+              th:value="${customer.email}" required />
             </div>
+
           </div>
 
           <div class="mb-3">
-            <!-- Address -->
             <label for="address" class="form-label">Address</label>
             <textarea class="form-control" name="address" rows="3" placeholder="Enter Address In Here"
-              th:field="*{address}" required></textarea>
+            th:text="${customer.address}" ></textarea>
           </div>
 
           <div class="pd_button" style="text-align: end;">
-            <!-- Cancel button -->
-            <a th:href="@{/cancel(accountId=${account.accountId})}" class="btn btn-secondary"
+            <a th:href="@{/cancel(accountId=${customer.accountId})}" class="btn btn-secondary"
               style="width: 120px; border-radius: 10px;">Cancel</a>
-
-            <!-- Save button -->
-            <input type="submit" id="saveBtn" class="btn btn-primary" style="width: 120px;border-radius: 10px;"
+<input type="submit" id="saveBtn" class="btn btn-primary" style="width: 120px;border-radius: 10px;"
               value="Save" />
           </div>
         </form>
 
-
-        <hr />
-      </div>
+      <hr />
     </div>
+  </div>
   </div>
   <!-- Include footer -->
   <div th:replace="Customer_Footer :: footer"></div>

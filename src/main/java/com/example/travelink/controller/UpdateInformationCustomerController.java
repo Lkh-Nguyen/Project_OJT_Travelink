@@ -4,52 +4,63 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model; // Đúng import từ Spring
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.travelink.model.Account;
-import com.example.travelink.service.Customer_Service;
+import com.example.travelink.service.CustomerService;
 
 import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class UpdateInformationCustomerController {
     @Autowired
-    private Customer_Service customer_Service;
+    private CustomerService customer_Service;
 
-    // @GetMapping("/mockLogin")
-    // public String mockLogin(HttpSession session) {
-
-    // Account account = customer_Service.getAccountById(2);
-    // session.setAttribute("loggedInUser", account);
-    // return "redirect:/ViewInformationCustomer";
-    // }
-
-    @GetMapping("/ViewInformationCustomer")
+    @GetMapping("/CustomerViewInformation")
     public String viewInformationCustomer(Model model, HttpSession session) {
         // Lấy người dùng từ session thay vì từ login
-        Account account = (Account) session.getAttribute("loggedInUser");
+        Account account = (Account) session.getAttribute("customer");
 
         if (account == null) {
             return "redirect:/CustomerLoginRegister";
         }
 
-        model.addAttribute("account", account);
+        model.addAttribute("customer", account);
         return "Customer_View_Information";
     }
 
-    @PostMapping("/UpdateInformationCustomer")
-    public String updateInformationCustomer(@ModelAttribute("account") Account account, HttpSession session,
-            Model model) {
-        // Cập nhật thông tin người dùng
-        if (customer_Service.isEmailAlreadyInUse(account.getEmail())) {
-            model.addAttribute("error", "Email đã được sử dụng. Vui lòng nhập email khác.");
-            return "redirect:/ViewInformationCustomer"; // Trả về form để nhập lại email
+   @PostMapping("/UpdateInformationCustomer")
+    public String updateInformationCustomer(
+            @RequestParam(value = "name", required=false) String name,
+            @RequestParam(value = "gender",required=false) String gender,
+            @RequestParam(value = "dateOfBirth",required=false) String dateOfBirth,
+            @RequestParam(value = "cmnd",required=false) String cmnd,
+            @RequestParam(value = "phoneNumber",required=false) String phoneNumber,
+            @RequestParam(value = "email",required=false) String email,
+            @RequestParam(value = "address",required=false) String address,
+            HttpSession session) {
+
+        Account customer = (Account) session.getAttribute("customer");
+
+        if (customer != null) {
+            customer.setName(name);
+            customer.setGender(gender);
+
+            if(dateOfBirth != "") {
+                customer.setDateOfBirth(java.sql.Date.valueOf(dateOfBirth));
+            }
+
+            customer.setCmnd(cmnd);
+            customer.setPhoneNumber(phoneNumber);
+            customer.setEmail(email);
+            customer.setAddress(address);
+
+            customer_Service.updateCustomerInformation(customer);
+            session.setAttribute("customer", customer);
         }
-        customer_Service.UpdateInformationCustomer(account);
-        session.setAttribute("loggedInUser", account);
-        return "redirect:/ViewInformationCustomer";
+
+        return "redirect:/CustomerViewInformation";
     }
 
     @GetMapping("/cancel")

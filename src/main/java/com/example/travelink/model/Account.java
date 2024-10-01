@@ -26,7 +26,7 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Account_ID") // ánh xạ với tên cột trong bảng
-    private int accountId; // Đổi thành camelCase
+    private int accountId;  // Đổi thành camelCase
 
     @Column(name = "Email", nullable = false) // cột không được null
     private String email;

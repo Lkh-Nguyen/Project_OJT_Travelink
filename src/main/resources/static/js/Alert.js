@@ -1,10 +1,7 @@
-$(document).ready(function() {
-    // Hiện thông báo nếu có lỗi
-    if ($('#status-message').length) {
-        $('#status-message').addClass('show').css('opacity', '1'); // Hiển thị thông báo
-        setTimeout(function() {
-            $('#status-message').removeClass('show').css('opacity', '0'); // Ẩn thông báo
-        }, 3000); // Thời gian hiển thị 5000 ms
-    }
-});
-
+const statusMessage = document.getElementById('status-message');
+setTimeout(() => {
+    statusMessage.classList.add('show'); // Thêm lớp 'show' để hiển thị thông báo
+    setTimeout(() => {
+        statusMessage.classList.remove('show'); // Loại bỏ lớp 'show' sau 3 giây (3000ms)
+    }, 3000); // Bạn có thể thay đổi thời gian tùy theo nhu cầu
+}, 100); // Thêm lớp 'show' sau 100ms
