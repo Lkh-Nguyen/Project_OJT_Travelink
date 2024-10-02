@@ -1,4 +1,5 @@
-<html lang="en">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -8,6 +9,7 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
     <link rel="stylesheet" href="css/Customer_Hotel_Detail.css">
+
 
 
 
@@ -73,59 +75,69 @@
 
     <div class="container" id="detail">
         <div id="detail_header">
-            <h2>Khách Sạn 500 Viewer Xinh Đẹp</h2>
-            <button disabled>Hotel</button>
-            <i class='bx bxs-star'></i>
-            <i class='bx bxs-star'></i>
-            <i class='bx bxs-star'></i>
-            <i class='bx bxs-star'></i>
-            <i class='bx bxs-star'></i>
+            <h2 th:text="${hotel.name}"></h2>
+            <div style="display: flex; align-items: center;">
+                <button disabled>Hotel</button>
+
+                <!-- Sử dụng vòng lặp để in ra số sao -->
+                <div th:each="i: ${#numbers.sequence(1, hotel.star)}">
+                    <i class='bx bxs-star'></i>
+                </div>
+
+                <!-- In ra các sao còn lại nếu số sao < 5 -->
+                <div th:each="j: ${#numbers.sequence(hotel.star + 1, 5)}">
+                    <i class='bx bxs-star-empty'></i> <!-- Sử dụng biểu tượng sao rỗng -->
+                </div>
+
+            </div>
+
         </div>
+
         <div id="detail_address">
-            <i class='bx bxs-location-plus'></i> 650 Tran Cao Van, Quan Thanh Khe, TP Da Nang
+            <i class='bx bxs-location-plus'></i>
+            <span th:text="${hotel.address}"></span> <!-- Sửa lại để hiển thị địa chỉ -->
         </div>
         <div class="row" style="margin-top: 2%" id="img_Hotel">
             <div class="col-md-8" id="left_img">
-                <img class="thumbnail1" style="width: 102%"
-                    src="https://ik.imagekit.io/tvlk/apr-asset/dgXfoyh24ryQLRcGq00cIdKHRmotrWLNlvG-TxlcLxGkiDwaUSggleJNPRgIHCX6/hotel/asset/10042556-758c3826ee60d654836f8ba201043584.jpeg?_src=imagekit&tr=c-at_max,f-jpg,fo-auto,h-162,pr-true,q-80,w-184"
-                    alt="alt" />
+                <!-- Hiển thị hình ảnh chính (hình đầu tiên trong danh sách hotelImages) -->
+                <img class="thumbnail1" style="width: 102%" th:src="${hotelImages.get(0).url}"
+                    th:alt="${hotelImages.get(0).name}" />
             </div>
             <div class="col-md-4" id="right_img">
                 <div class="row" style="margin-bottom: 10px;">
-                    <div class="col-6">
+                    <!-- Hiển thị hình ảnh thứ hai và thứ ba (nếu có) -->
+                    <div class="col-6" th:if="${hotelImages.size() > 1}">
                         <img class="thumbnail1" style="width: 108%; height: 195px; object-fit: cover;"
-                            src="https://ik.imagekit.io/tvlk/apr-asset/dgXfoyh24ryQLRcGq00cIdKHRmotrWLNlvG-TxlcLxGkiDwaUSggleJNPRgIHCX6/hotel/asset/10042556-758c3826ee60d654836f8ba201043584.jpeg?_src=imagekit&tr=c-at_max,f-jpg,fo-auto,h-162,pr-true,q-80,w-184"
-                            alt="image1" />
+                            th:src="${hotelImages.get(1).url}" th:alt="${hotelImages.get(1).name}" />
                     </div>
-                    <div class="col-6">
+                    <div class="col-6" th:if="${hotelImages.size() > 2}">
                         <img class="thumbnail1" style="width: 100%; height: 195px; object-fit: cover;"
-                            src="https://ik.imagekit.io/tvlk/apr-asset/dgXfoyh24ryQLRcGq00cIdKHRmotrWLNlvG-TxlcLxGkiDwaUSggleJNPRgIHCX6/hotel/asset/10042556-758c3826ee60d654836f8ba201043584.jpeg?_src=imagekit&tr=c-at_max,f-jpg,fo-auto,h-162,pr-true,q-80,w-184"
-                            alt="image2" />
+                            th:src="${hotelImages.get(2).url}" th:alt="${hotelImages.get(2).name}" />
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-6">
+                    <!-- Hiển thị hình ảnh thứ tư và thứ năm (nếu có) -->
+                    <div class="col-6" th:if="${hotelImages.size() > 3}">
                         <img class="thumbnail1" style="width: 108%; height: 195px; object-fit: cover;"
-                            src="https://ik.imagekit.io/tvlk/apr-asset/dgXfoyh24ryQLRcGq00cIdKHRmotrWLNlvG-TxlcLxGkiDwaUSggleJNPRgIHCX6/hotel/asset/10042556-758c3826ee60d654836f8ba201043584.jpeg?_src=imagekit&tr=c-at_max,f-jpg,fo-auto,h-162,pr-true,q-80,w-184"
-                            alt="image3" />
+                            th:src="${hotelImages.get(3).url}" th:alt="${hotelImages.get(3).name}" />
                     </div>
-                    <div class="col-6" id="lastImg" style="position: relative;">
+                    <div class="col-6" id="lastImg" style="position: relative;" th:if="${hotelImages.size() > 4}">
                         <img style="width: 100%; height: 195px; object-fit: cover; filter: brightness(50%);"
-                            src="https://ik.imagekit.io/tvlk/apr-asset/dgXfoyh24ryQLRcGq00cIdKHRmotrWLNlvG-TxlcLxGkiDwaUSggleJNPRgIHCX6/hotel/asset/10042556-758c3826ee60d654836f8ba201043584.jpeg?_src=imagekit&tr=c-at_max,f-jpg,fo-auto,h-162,pr-true,q-80,w-184"
-                            alt="image4" />
+                            th:src="${hotelImages.get(4).url}" th:alt="${hotelImages.get(4).name}" />
                         <div
                             style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1;">
                             <form action="viewHotel" method="get">
                                 <button id="btn_show_more"
                                     style="background-color: rgba(255, 255, 255, 0.5); padding: 10px 25px; border: none; border-radius: 5px">More
                                     images</button>
-                                <input type="hidden" name="hotelId" value="${requestScope.hotel_view.hotel_ID}">
+                                <input type="hidden" name="hotelId" th:value="${hotel.hotelId}">
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
 
         <div id="myModal1" class="modal1">
             <span class="close1">&times;</span>
@@ -134,13 +146,12 @@
         <div class="row" style="margin-top:1%;padding-bottom: 3%;border-bottom: 1px solid grey" id="content">
             <div class="col-md-8" id="left_content">
                 <h5 style="font-weight: 550">Introducing the accommodation</h5>
-                <c:set var="description" value="${requestScope.hotel_view.description}" />
-                <p>Khách sạn này là lựa chọn hoàn hảo cho các kỳ nghỉ mát lãng mạn hay tuần trăng mật của các cặp đôi.
-                    Quý khách hãy tận hưởng những đêm đáng nhớ nhất cùng người thương của mình tại Cicilia Danang Hotels
-                    & Spa Powered by ASTON.</p>
+                <p th:text="${hotel.description}">
+                </p>
                 <h5 style="font-weight: 550">Favorite amenities</h5>
-                <div style="width: 100%; display: flex; flex-wrap: wrap;" id="amenities">
-                    <div style="display: flex; align-items: center; margin-right: 20px;">
+                <div style="width: 100%; display: flex; flex-wrap: wrap;" id="amenities"
+                    th:each="hotelFacilities : ${hotelFacilities}">
+                    <!-- <div style="display: flex; align-items: center; margin-right: 20px;">
                         <i class='bx bxs-star' style="color: green;"></i><span style="color: black;">Game</span>
                     </div>
                     <div style="display: flex; align-items: center; margin-right: 20px;">
@@ -151,7 +162,17 @@
                     </div>
                     <div style="display: flex; align-items: center; margin-right: 20px;">
                         <i class='bx bxs-star' style="color: green;"></i><span style="color: black;">Game</span>
+                    </div> -->
+                    <div style="display: flex; align-items: center; margin-right: 20px;">
+                        <ul>
+                            <li th:each="hotelFacility : ${hotelFacilities}" style="display: flex;">
+                                <i th:class="'bx ' + ${hotelFacility.facility.url}" style="color: green;"></i>
+                                <span style="color: black;" th:text="${hotelFacility.facility.name}"></span>
+
+                            </li>
+                        </ul>
                     </div>
+
                 </div>
             </div>
 
@@ -216,15 +237,17 @@
         <div class="row" style="margin-top:2%;padding-bottom: 2%;border-bottom: 1px solid grey">
             <h5 style="font-weight: 550" id="idBooking">Introducing the accommodation</h5>
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-12" th:each="room : ${Room}">
                     <div class="card mb-3">
                         <div class="row g-0" id="images_rom">
                             <div class="col-md-3" style="padding-top:10px">
-                                <img src="https://ik.imagekit.io/tvlk/apr-asset/TzEv3ZUmG4-4Dz22hvmO9NUDzw1DGCIdWl4oPtKumOg=/lodging/5000000/4630000/4624400/4624340/14698fd3_z.jpg?_src=imagekit&tr=c-at_max,f-jpg,h-616,pr-true,q-100,w-968"
-                                    class="img-fluid rounded-start img-custom" alt="...">
+                                <img th:if="${roomImagesMap[room.roomId] != null and roomImagesMap[room.roomId].size() > 0}"
+                                    th:src="${roomImagesMap[room.roomId].get(0).url}"
+                                    class="img-fluid rounded-start img-custom" alt="Room Image">
                                 <div id="show_detail">
                                     <form action="viewRoom" method="get">
-                                        <button><i class='bx bx-folder-plus' style="margin-right:5px"></i>View Detail Room</button>
+                                        <button><i class='bx bx-folder-plus' style="margin-right:5px"></i>View Detail
+                                            Room</button>
                                         <input type="hidden" name="roomId" value="${roomHotel.room_ID}">
                                         <input type="hidden" name="hotelId" value="${requestScope.hotel_view.hotel_ID}">
                                     </form>
@@ -232,7 +255,7 @@
                             </div>
                             <div class="col-md-9">
                                 <div class="card-body1">
-                                    <h4 class="card-title" style="margin-top:10px">Standard Room </h4>
+                                    <h4 class="card-title" style="margin-top:10px" th:text="${room.name}"></h4>
                                     <table id="roomTable">
                                         <thead>
                                             <tr>
@@ -244,35 +267,37 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr data-price="${roomHotel.price}" data-room-name="${roomHotel.name}"
-                                                data-id-hotel="${roomHotel.room_ID}">
+                                            <tr data-price="${room.price}" data-room-name="${room.name}"
+                                                data-id-hotel="${room.roomId}">
                                                 <td style="width: 250px;">
-                                                    <p style=" margin-bottom:0px"><i class='bx bxs-bed'
-                                                            style="font-size: 12px;"></i> 1 Giường đơn </p>
-
+                                                    <div th:each="entry : ${roomBedMap}">
+                                                        <div th:if="${entry.key.roomId == room.roomId}">
+                                                            <!-- Chỉ hiển thị giường của phòng hiện tại -->
+                                                            <div th:each="roomBed : ${entry.value}">
+                                                                <p
+                                                                    th:text="${roomBed.amount} + ' giường ' + ${roomBed.bed.name}">
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                     <h4 id="service" style="margin-top: 5px">Breakfast Included</h4>
-
                                                 </td>
                                                 <td>
                                                     <div id="amount_People">
-
-                                                        <i class='bx bxs-user'></i>
-                                                        <i class='bx bxs-user'></i>
-
-
+                                                        <i class='bx bxs-user'
+                                                            th:each="user : ${#numbers.sequence(0, room.capacity - 1)}"></i>
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <p id="save">Tiết kiệm 0%</p><br>
-                                                    <h4 id="price_save">12.00 VND</h4>
+                                                    <h4 id="price_save" th:text="${room.price} + ' VND'"></h4>
                                                 </td>
                                                 <td>
                                                     <select style="width:50px">
-                                                        <option value="4">5</option>
+                                                        <option value="5">5</option>
                                                         <option value="4">4</option>
                                                         <option value="3">3</option>
                                                         <option value="2">2</option>
-
                                                     </select>
                                                     <input type="hidden" id="infor" value="" />
                                                 </td>
@@ -292,6 +317,7 @@
                 </form>
             </div>
         </div>
+
 
         <div class="row" style="margin-top:2%">
             <h5 style="font-weight: bold">Other reviews from travelers about My Villa Airport Hotel</h5>
