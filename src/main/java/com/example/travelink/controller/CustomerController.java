@@ -1,7 +1,7 @@
 package com.example.travelink.controller;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
@@ -29,8 +29,8 @@ public class CustomerController {
     private MailService mailService;
     @Autowired
     private VerificationTokenService verificationTokenService;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+   
+
 
     @GetMapping("/CustomerHome")
     public String customerHome(HttpSession session, Model model) {
@@ -132,6 +132,7 @@ public class CustomerController {
 
     @GetMapping("/verify")
     public String verifyAccount(@RequestParam("token") String token, Model model) {
+
         VerificationToken verificationToken = verificationTokenService.findByToken(token);
 
         if (verificationToken == null) {
@@ -146,4 +147,6 @@ public class CustomerController {
         model.addAttribute("message", "Account verified successfully!");
         return "Customer_Login_Register";
     }
+
+    
 }

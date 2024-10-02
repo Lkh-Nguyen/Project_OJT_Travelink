@@ -2,10 +2,7 @@ package com.example.travelink.controller;
 
 import com.example.travelink.model.Account;
 import com.example.travelink.service.CustomerService;
-// import com.example.travelink.service.PasswordService;
-
 import jakarta.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,8 +12,7 @@ import org.springframework.web.bind.annotation.*;
 public class PasswordController {
 
     @Autowired
-    private CustomerService customer_Service;
-
+    private CustomerService customerService;
 
     @GetMapping("/CustomerChangePassword")
     public String changePassword(Model model, HttpSession session) {
@@ -42,21 +38,20 @@ public class PasswordController {
         if (customer == null) {
             return "redirect:/CustomerLoginRegister";
         }
-
-        System.out.println("Logged-in user: " + customer.getEmail()); // Log để kiểm tra
-
-
+        // System.out.println("Logged-in user: " + customer.getEmail()); // Log để kiểm tra
         //Kiểm tra mật khẩu cũ có đúng không
+        if(!password.equalsIgnoreCase(customer.getPassword())){
+            return "redirect:/CustomerChangePassword";
+        }
 
         // Kiểm tra mật khẩu mới có khớp nhau không
         if (!new_password.equals(new_again_password)) {
             return "redirect:/CustomerChangePassword";
         }
 
-        // Mã hóa mật khẩu mới trước khi lưu
         if (customer != null){
             customer.setPassword(new_again_password);
-            customer_Service.updateCustomerInformation(customer);
+            customerService.updateCustomerInformation(customer);
             httpSession.setAttribute("customer", customer);
         }
         

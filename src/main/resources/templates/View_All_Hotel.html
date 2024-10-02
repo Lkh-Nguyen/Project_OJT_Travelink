@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh Sách Khách Sạn</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="mb-4">Danh Sách Khách Sạn</h1>
+
+    <div class="row">
+        <div class="profile-section text-center">
+            <img th:src="${customer.avatarUrl}" class="rounded-circle" alt="Profile Picture" />
+            <h5 class="mt-2" th:text="${customer.name}"></h5>
+            <p th:text="${customer.email}"></p>
+        </div>
+        <div class="col-md-4" th:each="hotel : ${hotels}">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${hotel.name}"></h5>
+                    <p class="card-text">
+                        <strong>Email:</strong> <span th:text="${hotel.email}"></span><br>
+                        <strong>Số Điện Thoại:</strong> <span th:text="${hotel.phoneNumber}"></span><br>
+                        <strong>Đánh Giá:</strong> <span th:text="${hotel.rating}"></span><br>
+                        <strong>Địa Chỉ:</strong> <span th:text="${hotel.address}"></span><br>
+                        <strong>Trạng Thái:</strong> <span th:text="${hotel.status}"></span><br>
+                        <strong>Sao:</strong> <span th:text="${hotel.star}"></span>
+                    </p>
+                    
+                    <!-- Form to add to favourite -->
+                    <form th:action="@{/AddFavouriteHotel}" method="post" class="mb-2">
+                        <input type="hidden" th:value="${hotel.hotelId}" name="hotelID"/>
+                        <button type="submit" class="btn btn-success w-100">Thêm vào Yêu Thích</button>
+                    </form>
+
+                    <!-- Form to remove from favourite -->
+                    <form th:action="@{/DeleteFavouriteHotel}" method="post">
+                        <input type="hidden" th:value="${hotel.hotelId}" name="hotelID"/>
+                        <button type="submit" class="btn btn-danger w-100">Xóa khỏi Yêu Thích</button>
+                    </form>
+
+                    <a href="#" class="btn btn-primary mt-2">Xem Chi Tiết</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a href="/" class="btn btn-secondary mt-4">Quay lại</a>
+</div>
+</body>
+</html>

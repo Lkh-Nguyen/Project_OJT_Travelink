@@ -24,14 +24,19 @@ public class FavouriteHotel {
     @MapsId("accountId")
     @JoinColumn(name = "Account_ID")
     private Account account;
-}
 
-@Embeddable
-class FavouriteHotelKey implements java.io.Serializable {
+    @Embeddable
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @ToString
+    public static class FavouriteHotelKey implements java.io.Serializable {
+    
+        @Column(name = "Hotel_ID")
+        private int hotelId;
 
-    @Column(name = "Hotel_ID")
-    private int hotelId;
-
-    @Column(name = "Account_ID")
-    private int accountId;
+        @Column(name = "Account_ID")
+        private int accountId;
+    }
 }

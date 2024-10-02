@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class UpdateInformationCustomerController {
     @Autowired
-    private CustomerService customer_Service;
+    private CustomerService customerService;
 
     @GetMapping("/CustomerViewInformation")
     public String viewInformationCustomer(Model model, HttpSession session) {
@@ -56,7 +56,7 @@ public class UpdateInformationCustomerController {
             customer.setEmail(email);
             customer.setAddress(address);
 
-            customer_Service.updateCustomerInformation(customer);
+            customerService.updateCustomerInformation(customer);
             session.setAttribute("customer", customer);
         }
 
