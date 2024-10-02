@@ -147,4 +147,10 @@ public class CustomerController {
         model.addAttribute("message", "Account verified successfully!");
         return "Customer_Login_Register";
     }
+
+
+    @GetMapping("/CustomerHotelDetail")
+    public String customerHotelDetail() {
+        return "Customer_Hotel_Detail"; // Trả về trang xác minh mã
+    }
 }
