@@ -1,6 +1,6 @@
 package com.example.travelink.model;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,7 +25,7 @@ public class Feedback {
     private Byte rating;
 
     @Column(name = "Date")
-    private Date date;
+    private LocalDateTime date;
 
     @Column(name = "LikesCount")
     private int likesCount;
