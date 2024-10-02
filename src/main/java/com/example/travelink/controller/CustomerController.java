@@ -29,6 +29,7 @@ public class CustomerController {
     private MailService mailService;
     @Autowired
     private VerificationTokenService verificationTokenService;
+    @SuppressWarnings("unused")
     @Autowired
     private PasswordEncoder passwordEncoder;
 
