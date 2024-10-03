@@ -56,26 +56,22 @@ public class FavouriteHotelController {
 
         // Lấy danh sách khách sạn yêu thích của khách hàng
         List<FavouriteHotel> favouriteHotels = favouriteHotelService.getFavouriteHotelsByAccount(accountId);
-        List<Hotel> hotelsWithImages = new ArrayList<>(); // Danh sách lưu trữ khách sạn
-        Map<Integer, List<HotelImage>> hotelImagesMap = new HashMap<>(); // Bản đồ lưu trữ hình ảnh của từng khách sạn
+        List<Hotel> hotelsWithImages = new ArrayList<>(); 
+        Map<Integer, List<HotelImage>> hotelImagesMap = new HashMap<>(); 
 
         // Lặp qua danh sách khách sạn yêu thích
         for (FavouriteHotel favouriteHotel : favouriteHotels) {
-            Hotel hotel = favouriteHotel.getHotel(); // Lấy khách sạn từ FavouriteHotel
-            List<HotelImage> images = hotelPictureService.getImagesByHotelId(hotel.getHotelId()); // Lấy hình ảnh của
-                                                                                                  // khách sạn
-            hotelImagesMap.put(hotel.getHotelId(), images); // Lưu hình ảnh vào bản đồ theo ID khách sạn
 
-            System.out.println("Hotel ID: " + hotel.getHotelId() + ", Name: " + hotel.getName() + ", Images Count: "
-                    + images.size());
-            hotelsWithImages.add(hotel); // Thêm khách sạn vào danh sách
+            Hotel hotel = favouriteHotel.getHotel(); 
+            List<HotelImage> images = hotelPictureService.getImagesByHotelId(hotel.getHotelId()); 
+
+            hotelImagesMap.put(hotel.getHotelId(), images); 
+
+            hotelsWithImages.add(hotel); 
         }
 
-        System.out.println("Number of favourite hotels: " + favouriteHotels.size());
-
-        // Thêm danh sách khách sạn và hình ảnh vào mô hình
         model.addAttribute("hotels", hotelsWithImages);
-        model.addAttribute("hotelImagesMap", hotelImagesMap); // Thêm bản đồ hình ảnh vào mô hình
+        model.addAttribute("hotelImagesMap", hotelImagesMap); 
         model.addAttribute("customer", customer);
 
         return "Customer_Favourite_Hotel";
@@ -121,18 +117,17 @@ public class FavouriteHotelController {
         Account customer = (Account) session.getAttribute("customer");
 
         if (customer == null) {
-            redirectAttributes.addFlashAttribute("error", "Vui lòng đăng nhập trước!"); // Thông báo lỗi
-            return "redirect:/CustomerLoginRegister"; // Chuyển hướng đến trang đăng nhập
+            redirectAttributes.addFlashAttribute("error", "Vui lòng đăng nhập trước!"); 
+            return "redirect:/CustomerLoginRegister"; 
         }
 
         int accountID = customer.getAccountId();
         favouriteHotelService.deleteFavouriteHotel(hotelID, accountID);
 
         if (favouriteHotelRepository.existsByHotel_HotelIdAndAccount_AccountId(hotelID, accountID)) {
-            // Fail delete
             return "redirect:/ViewAllHotel";
         } else {
-            return "redirect:/CustomerFavouriteHotel"; // Chuyển hướng đến danh sách yêu thích
+            return "redirect:/CustomerFavouriteHotel"; 
         }
     }
 
