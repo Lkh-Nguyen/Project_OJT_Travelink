@@ -126,7 +126,7 @@
                             th:src="${hotelImages.get(4).url}" th:alt="${hotelImages.get(4).name}" />
                         <div
                             style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1;">
-                            <form action="viewHotel" method="get">
+                            <form action="/ShowHotelImages" method="get">
                                 <button id="btn_show_more"
                                     style="background-color: rgba(255, 255, 255, 0.5); padding: 10px 25px; border: none; border-radius: 5px">More
                                     images</button>
@@ -245,10 +245,9 @@
                                     th:src="${roomImagesMap[room.roomId].get(0).url}"
                                     class="img-fluid rounded-start img-custom" alt="Room Image">
                                 <div id="show_detail">
-                                    <form action="viewRoom" method="get">
-                                        <button><i class='bx bx-folder-plus' style="margin-right:5px"></i>View Detail
-                                            Room</button>
-                                        <input type="hidden" name="roomId" value="${roomHotel.room_ID}">
+                                    <form action="/ShowRoomImages" method="get">
+                                        <input type="hidden" name="roomId" th:value="${room.roomId}"> <!-- Thêm hidden input cho roomId -->
+                                        <button type="submit"><i class='bx bx-folder-plus' style="margin-right:5px"></i>View Detail Room</button>
                                         <input type="hidden" name="hotelId" value="${requestScope.hotel_view.hotel_ID}">
                                     </form>
                                 </div>
