@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <link rel="stylesheet" href="css/Customer_Hotel_Detail.css">
+
+
+
+
+    <title>Document</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tfoot th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .liked {
+            color: blue !important;
+            background-color: white;
+        }
+
+        .liked span {
+            color: blue !important;
+        }
+
+        .disliked {
+            color: red !important;
+            background-color: white;
+        }
+
+        .disliked span {
+            color: red !important;
+        }
+
+        .form-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-right: 20px;
+        }
+
+        .form-inline .form-group label {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container" id="detail">
+        <div id="detail_header">
+            <h2 th:text="${hotel.name}"></h2>
+            <div style="display: flex; align-items: center;">
+                <button disabled>Hotel</button>
+
+                <!-- Sử dụng vòng lặp để in ra số sao -->
+                <div th:each="i: ${#numbers.sequence(1, hotel.star)}">
+                    <i class='bx bxs-star'></i>
+                </div>
+
+                <!-- In ra các sao còn lại nếu số sao < 5 -->
+                <div th:each="j: ${#numbers.sequence(hotel.star + 1, 5)}">
+                    <i class='bx bxs-star-empty'></i> <!-- Sử dụng biểu tượng sao rỗng -->
+                </div>
+
+            </div>
+
+        </div>
+
+        <div id="detail_address">
+            <i class='bx bxs-location-plus'></i>
+            <span th:text="${hotel.address}"></span> <!-- Sửa lại để hiển thị địa chỉ -->
+        </div>
+        <div class="row" style="margin-top: 2%" id="img_Hotel">
+            <div class="col-md-8" id="left_img">
+                <!-- Hiển thị hình ảnh chính (hình đầu tiên trong danh sách hotelImages) -->
+                <img class="thumbnail1" style="width: 102%" th:src="${hotelImages.get(0).url}"
+                    th:alt="${hotelImages.get(0).name}" />
+            </div>
+            <div class="col-md-4" id="right_img">
+                <div class="row" style="margin-bottom: 10px;">
+                    <!-- Hiển thị hình ảnh thứ hai và thứ ba (nếu có) -->
+                    <div class="col-6" th:if="${hotelImages.size() > 1}">
+                        <img class="thumbnail1" style="width: 108%; height: 195px; object-fit: cover;"
+                            th:src="${hotelImages.get(1).url}" th:alt="${hotelImages.get(1).name}" />
+                    </div>
+                    <div class="col-6" th:if="${hotelImages.size() > 2}">
+                        <img class="thumbnail1" style="width: 100%; height: 195px; object-fit: cover;"
+                            th:src="${hotelImages.get(2).url}" th:alt="${hotelImages.get(2).name}" />
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- Hiển thị hình ảnh thứ tư và thứ năm (nếu có) -->
+                    <div class="col-6" th:if="${hotelImages.size() > 3}">
+                        <img class="thumbnail1" style="width: 108%; height: 195px; object-fit: cover;"
+                            th:src="${hotelImages.get(3).url}" th:alt="${hotelImages.get(3).name}" />
+                    </div>
+                    <div class="col-6" id="lastImg" style="position: relative;" th:if="${hotelImages.size() > 4}">
+                        <img style="width: 100%; height: 195px; object-fit: cover; filter: brightness(50%);"
+                            th:src="${hotelImages.get(4).url}" th:alt="${hotelImages.get(4).name}" />
+                        <div
+                            style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1;">
+                            <form action="viewHotel" method="get">
+                                <button id="btn_show_more"
+                                    style="background-color: rgba(255, 255, 255, 0.5); padding: 10px 25px; border: none; border-radius: 5px">More
+                                    images</button>
+                                <input type="hidden" name="hotelId" th:value="${hotel.hotelId}">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="myModal1" class="modal1">
+            <span class="close1">&times;</span>
+            <img class="modal-content1" id="img01">
+        </div>
+        <div class="row" style="margin-top:1%;padding-bottom: 3%;border-bottom: 1px solid grey" id="content">
+            <div class="col-md-8" id="left_content">
+                <h5 style="font-weight: 550">Introducing the accommodation</h5>
+                <p th:text="${hotel.description}">
+                </p>
+                <h5 style="font-weight: 550">Favorite amenities</h5>
+                <div style="width: 100%; display: flex; flex-wrap: wrap;" id="amenities"
+                    th:each="hotelFacilities : ${hotelFacilities}">
+                    <!-- <div style="display: flex; align-items: center; margin-right: 20px;">
+                        <i class='bx bxs-star' style="color: green;"></i><span style="color: black;">Game</span>
+                    </div>
+                    <div style="display: flex; align-items: center; margin-right: 20px;">
+                        <i class='bx bxs-star' style="color: green;"></i><span style="color: black;">Game</span>
+                    </div>
+                    <div style="display: flex; align-items: center; margin-right: 20px;">
+                        <i class='bx bxs-star' style="color: green;"></i><span style="color: black;">Game</span>
+                    </div>
+                    <div style="display: flex; align-items: center; margin-right: 20px;">
+                        <i class='bx bxs-star' style="color: green;"></i><span style="color: black;">Game</span>
+                    </div> -->
+                    <div style="display: flex; align-items: center; margin-right: 20px;">
+                        <ul>
+                            <li th:each="hotelFacility : ${hotelFacilities}" style="display: flex;">
+                                <i th:class="'bx ' + ${hotelFacility.facility.url}" style="color: green;"></i>
+                                <span style="color: black;" th:text="${hotelFacility.facility.name}"></span>
+
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="col-md-4">
+                <div class="card" style="width: 100%; background-color: rgb(240,246,255)">
+                    <div class="card-body">
+                        <h5 class="card-title" style="font-weight: bold">Highlights of the property</h5>
+                        <h6>Perfect for a 1 night stay!</h6>
+                        <p class="card-text">Located in the top-rated area in VietNam. This is the best choice for you
+                            in holiday. Try it !!!</p>
+                        <a href="#idBooking" class="btn btn-primary"
+                            style="background-color: blue;  color:white">Booking Now</a><br>
+                        <!-- Favorite Hotel -->
+                        <form action="viewHotelDetailServlet" method="post">
+                            <h6>Add to favorites hotel</h6>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch"
+                                    id="flexSwitchCheckDefault" name="checkedFavorite" checked>
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Add to favorites
+                                    hotel</label>
+                                <input type="hidden" name="statusFav" value="yes">
+                            </div>
+                            <button class="btn btn-success w-100 favorButton">Save</button>
+                            <input type="hidden" name="idHotelFavor" value="${requestScope.hotel_view.hotel_ID}" />
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="container"> </div>
+            <div class="row justify-content-center">
+                <div class="col-md-12">
+                    <div class="form-container mt-5">
+                        <form id="bookingForm" action="viewHotelDetailServlet" method="get" class="form-inline">
+                            <input type="hidden" value="${param.hotel_ID}" name="hotel_ID">
+                            <div class="form-group">
+                                <label for="check_in_date">Check-in Date:</label>
+                                <input type="date" id="check_in_date" name="check_in_date" class="form-control" required
+                                    value="${requestScope.check_in_date}">
+                            </div>
+                            <div class="form-group mt-3">
+                                <label for="check_out_date">Check-out Date:</label>
+                                <input type="date" id="check_out_date" name="check_out_date" class="form-control"
+                                    required value="${requestScope.check_out_date}">
+                            </div>
+                            <div class="form-group mt-3">
+                                <label for="check_out_date">Number of guests:</label>
+                                <input type="number" id="number_of_guests" name="number_of_guests" class="form-control"
+                                    required value="${requestScope.number_of_guests}" min="1">
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary mt-3">Search</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top:2%;padding-bottom: 2%;border-bottom: 1px solid grey">
+            <h5 style="font-weight: 550" id="idBooking">Introducing the accommodation</h5>
+            <div class="row">
+                <div class="col-md-12" th:each="room : ${Room}">
+                    <div class="card mb-3">
+                        <div class="row g-0" id="images_rom">
+                            <div class="col-md-3" style="padding-top:10px">
+                                <img th:if="${roomImagesMap[room.roomId] != null and roomImagesMap[room.roomId].size() > 0}"
+                                    th:src="${roomImagesMap[room.roomId].get(0).url}"
+                                    class="img-fluid rounded-start img-custom" alt="Room Image">
+                                <div id="show_detail">
+                                    <form action="viewRoom" method="get">
+                                        <button><i class='bx bx-folder-plus' style="margin-right:5px"></i>View Detail
+                                            Room</button>
+                                        <input type="hidden" name="roomId" value="${roomHotel.room_ID}">
+                                        <input type="hidden" name="hotelId" value="${requestScope.hotel_view.hotel_ID}">
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="card-body1">
+                                    <h4 class="card-title" style="margin-top:10px" th:text="${room.name}"></h4>
+                                    <table id="roomTable">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 250px;">Type Bed Room</th>
+                                                <th>Number people</th>
+                                                <th>Price/Room/Night</th>
+                                                <th>Amount</th>
+                                                <th style="width: 250px;">Price</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr data-price="${room.price}" data-room-name="${room.name}"
+                                                data-id-hotel="${room.roomId}">
+                                                <td style="width: 250px;">
+                                                    <div th:each="entry : ${roomBedMap}">
+                                                        <div th:if="${entry.key.roomId == room.roomId}">
+                                                            <!-- Chỉ hiển thị giường của phòng hiện tại -->
+                                                            <div th:each="roomBed : ${entry.value}">
+                                                                <p
+                                                                    th:text="${roomBed.amount} + ' giường ' + ${roomBed.bed.name}">
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <h4 id="service" style="margin-top: 5px">Breakfast Included</h4>
+                                                </td>
+                                                <td>
+                                                    <div id="amount_People">
+                                                        <i class='bx bxs-user'
+                                                            th:each="user : ${#numbers.sequence(0, room.capacity - 1)}"></i>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <p id="save">Tiết kiệm 0%</p><br>
+                                                    <h4 id="price_save" th:text="${room.price} + ' VND'"></h4>
+                                                </td>
+                                                <td>
+                                                    <select style="width:50px">
+                                                        <option value="5">5</option>
+                                                        <option value="4">4</option>
+                                                        <option value="3">3</option>
+                                                        <option value="2">2</option>
+                                                    </select>
+                                                    <input type="hidden" id="infor" value="" />
+                                                </td>
+                                                <td rowspan="3" style="width: 300px;" id="message">No room selected</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <input type="hidden" id="infor" value="" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <form>
+                    <input type="submit" value="Continue" id="continue">
+                </form>
+            </div>
+        </div>
+
+
+        <div class="row" style="margin-top:2%">
+            <h5 style="font-weight: bold">Other reviews from travelers about My Villa Airport Hotel</h5>
+            <!--            Overall rating-->
+            <h6>Rating & Overall Review Score</h6>
+            <div class="row">
+                <div class="col-md-3 mt-5" id="left_rate">
+                    <p id="rating">4.9</p>
+                    <div style="display: flex" id="rate">
+                        <i class='bx bxs-star'></i>
+                        <i class='bx bxs-star'></i>
+                        <i class='bx bxs-star'></i>
+                        <i class='bx bxs-star'></i>
+                        <i class='bx bxs-star'></i>
+                    </div>
+                </div>
+
+                <!--                    Feedback-->
+                <div class="col-md-9">
+                    <div class="my-feedback-button d-flex justify-content-end">
+                        <a href="MyFeedbackServlet" class="btn btn-dark mb-2">Show all my feedback</a>
+                    </div>
+                    <div class="w-100 mb-3">
+
+                        <div class="card card-body mb-3" data-customer-id="${f.getAccount(f.feedbackID).account_ID}"
+                            style="border: 1px solid rgb(227,227,227);border-radius: 5px;padding: 1rem">
+                            <div class="d-flex">
+                                <div class="avatar">
+                                    <img src="https://ik.imagekit.io/tvlk/apr-asset/TzEv3ZUmG4-4Dz22hvmO9NUDzw1DGCIdWl4oPtKumOg=/lodging/5000000/4630000/4624400/4624340/14698fd3_z.jpg?_src=imagekit&tr=c-at_max,f-jpg,h-616,pr-true,q-100,w-968"
+                                        width="50">
+                                </div>
+                                <div class="ms-3">
+                                    <div class="row">
+                                        <div class="col-md-11">
+                                            <h6 class="mb-0" style="font-size: 20px;font-weight: bold">
+                                                Hoang Nguyen</h6>
+
+                                            <span class="text-muted"
+                                                style="float: left;font-size: 18px;font-weight: bold">
+                                                12:03:59 PM 12/06/20024
+                                            </span>
+                                        </div>
+                                        <c:if
+                                            test="${sessionScope.account.account_ID != f.getAccount(f.feedbackID).account_ID}">
+                                            <div class="col-md-1">
+                                                <form action="ReportFeedbackServlet" method="get">
+                                                    <button style="background-color: white;border: none"><i
+                                                            class='bx bxs-error' id="reportFeedback"></i></button>
+                                                    <input type="hidden" name="feedbackID" value="${f.feedbackID}" />
+                                                    <input type="hidden" name="hotel_ID"
+                                                        value="${requestScope.hotel_view.hotel_ID}" />
+                                                </form>
+                                            </div>
+                                        </c:if>
+                                    </div>
+                                    <div style="color: orange;font-weight: bold">
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bx-star'></i>
+                                        <i class='bx bx-star'></i>
+                                        <i class='bx bx-star'></i>
+                                        <i class='bx bx-star'></i>
+                                    </div>
+                                    <p style="font-size: 18px">Rất Tốt</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Href Web-->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!---->
+</body>
+
+</html>

@@ -29,6 +29,7 @@ public class CustomerController {
     private MailService mailService;
     @Autowired
     private VerificationTokenService verificationTokenService;
+    @SuppressWarnings("unused")
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -77,7 +78,7 @@ public class CustomerController {
             @RequestParam("password") String password,
             HttpSession session,
             RedirectAttributes redirectAttributes) {
-        
+
         Account account = customerService.getCustomerByEmail(email);
 
         if (account != null) {
@@ -146,4 +147,10 @@ public class CustomerController {
         model.addAttribute("message", "Account verified successfully!");
         return "Customer_Login_Register";
     }
+
+    // @GetMapping("/CustomerHotelDetail")
+    // public String customerHotelDetail() {
+
+    // return "Customer_Hotel_Detail"; // Trả về trang xác minh mã
+    // }
 }

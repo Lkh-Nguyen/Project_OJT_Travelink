@@ -99,6 +99,7 @@ public class CustomerService {
     }
 
     //Generate random password for Google Login
+    @SuppressWarnings("unused")
     private String generateRandomPassword() {
         int length = 8;
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
