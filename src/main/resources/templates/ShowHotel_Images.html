@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img_Home/logo.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <link rel="stylesheet" href="css/Customer_Hotel_Detail.css">
+    <link rel="stylesheet" href="css/Customer_ShowHotel_Images.css">
+
+    <title>Hotel</title>
+</head>
+
+<body>
+    <div class="container-fluid"></div>
+    <div class="container" id="detail">
+        <div id="detail_header">
+            <h2 th:text="${hotel.name}"></h2>
+            <div style="display: flex; align-items: center;">
+                <button disabled>Hotel</button>
+
+                <!-- Sử dụng vòng lặp để in ra số sao -->
+                <div th:each="i: ${#numbers.sequence(1, hotel.star)}">
+                    <i class='bx bxs-star'></i>
+                </div>
+
+                <!-- In ra các sao còn lại nếu số sao < 5 -->
+                <div th:each="j: ${#numbers.sequence(hotel.star + 1, 5)}">
+                    <i class='bx bxs-star-empty'></i> <!-- Sử dụng biểu tượng sao rỗng -->
+                </div>
+
+            </div>
+        </div>
+        <div id="detail_address">
+            <i class='bx bxs-location-plus'></i> <span th:text="${hotel.address}"></span>
+        </div>
+
+        <div class=" row" style="margin-top:1%;padding-bottom: 3%;border-bottom: 1px solid grey" id="content">
+            <div class="col-md-8" id="left_content">
+                <h5 style="font-weight: 550">Introducing the accommodation</h5>
+                <p th:text="${hotel.description}"></p>
+                <h5 style="font-weight: 550">Favorite amenities</h5>
+                <div style="display: flex; align-items: center; margin-right: 20px;">
+                    <ul>
+                        <li th:each="hotelFacility : ${hotelFacilities}" style="display: flex;">
+                            <i th:class="'bx ' + ${hotelFacility.facility.url}" style="color: green;"></i>
+                            <span style="color: black;" th:text="${hotelFacility.facility.name}"></span>
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card" style="width: 100%; background-color: rgb(240,246,255)">
+                    <div class="card-body">
+                        <h5 class="card-title" style="font-weight: bold">Highlights of the property</h5>
+                        <h6>Perfect for a 1 night stay!</h6>
+                        <p class="card-text">Located in the top-rated area in VietNam. This is the best choice for
+                            you
+                            in holiday. Try it !!!</p>
+                        <form action="viewHotelDetailServlet" method="get">
+                            <button class="btn btn-primary" style="background-color: blue; color:white">Booking
+                                Now</button>
+                            <input type="hidden" name="hotel_ID" value="Hotel ID Here">
+                        </form>
+                        <!-- Favorite Hotel
+                        <!-- Favorite Hotel -->
+                        <h6>Add to favorites hotel</h6>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault"
+                                name="checkedFavorite">
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Add to favorites
+                                hotel</label>
+                            <input type="hidden" name="statusFav" value="no">
+                        </div>
+                        <button class="btn btn-success w-100 favorButton">Save</button>
+                        <input type="hidden" name="idHotelFavor" value="Hotel ID Here" />
+                        <!-- Status messages -->
+                        <!-- <div id="status-message" style="background-color: rgb(233,251,233);height: 70px;"
+                            class="hidden">
+                            <div style="display: flex">
+                                <div style="width: 20%">
+                                    <i class='bx bxs-check-circle'
+                                        style="font-size: 50px;color:green;margin-top: 0px"></i>
+                                </div>
+                                <div style="width: 80%; text-align: start">
+                                    <h3 style="color:green;margin-top: 5px; margin-bottom: -2px;font-weight:550">
+                                        Success
+                                    </h3>
+                                    <p style="color: black;font-size: 14px">Success message here</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="status-message" style="background-color: rgb(253,233,231);height: 70px;"
+                            class="hidden">
+                            <div style="display: flex">
+                                <div style="width: 20%">
+                                    <i class='bx bxs-error-circle'
+                                        style="font-size: 50px;color: red;margin-top: 0px"></i>
+                                </div>
+                                <div style="width: 80%;text-align: start">
+                                    <h3 style="color: red;margin-top: 5px;font-weight: 550 ">Error</h3>
+                                    <p style="color: black;margin-top: -10px;font-size: 14px">Error message here</p>
+                                </div>
+                            </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="container" style="margin-top:1%">
+        <h3>Images of hotel</h3>
+        <div class="row">
+            <div class="col-md-2 Img" th:each="hotelImage : ${hotelImages}">
+                <img th:src="${hotelImage.url}" alt="Thumbnail" class="thumbnail">
+            </div>
+        </div>
+
+        <div id="myModal" class="modal">
+            <span class="close">&times;</span>
+            <span class="prev">&#10094;</span>
+            <img class="modal-content" id="img01">
+            <span class="next">&#10095;</span>
+        </div>
+    </div>
+
+    <!-- Include Footer -->
+    <footer>
+        <p>&copy; 2024 Your Company Name</p>
+    </footer>
+    <script>
+        var modal = document.getElementById("myModal");
+        var modalImg = document.getElementById("img01");
+        var thumbnails = document.getElementsByClassName("thumbnail");
+        var currentIndex = 0;
+
+        function showModal(index) {
+            modal.style.display = "block";
+            modalImg.src = thumbnails[index].src;
+            currentIndex = index;
+        }
+
+        for (var i = 0; i < thumbnails.length; i++) {
+            (function (index) {
+                thumbnails[index].onclick = function () {
+                    showModal(index);
+                }
+            })(i);
+        }
+
+        var span = document.getElementsByClassName("close")[0];
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        var prev = document.getElementsByClassName("prev")[0];
+        var next = document.getElementsByClassName("next")[0];
+
+        prev.onclick = function () {
+            currentIndex = (currentIndex == 0) ? thumbnails.length - 1 : currentIndex - 1;
+            showModal(currentIndex);
+        }
+
+        next.onclick = function () {
+            currentIndex = (currentIndex == thumbnails.length - 1) ? 0 : currentIndex + 1;
+            showModal(currentIndex);
+        }
+    </script>
+</body>
+
+</html>

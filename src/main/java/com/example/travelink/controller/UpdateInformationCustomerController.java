@@ -46,7 +46,11 @@ public class UpdateInformationCustomerController {
         if (customer != null) {
             customer.setName(name);
             customer.setGender(gender);
-            customer.setDateOfBirth(java.sql.Date.valueOf(dateOfBirth));
+
+            if(dateOfBirth != "") {
+                customer.setDateOfBirth(java.sql.Date.valueOf(dateOfBirth));
+            }
+
             customer.setCmnd(cmnd);
             customer.setPhoneNumber(phoneNumber);
             customer.setEmail(email);
@@ -61,7 +65,7 @@ public class UpdateInformationCustomerController {
 
     @GetMapping("/cancel")
     public String cancel() {
-        return "redirect:/CustomerViewInformation";
+        return "redirect:/ViewInformationCustomer";
     }
 
 }
