@@ -26,21 +26,22 @@ public class RoomFacility {
     @JoinColumn(name = "Facility_ID")
     private Facility facility;
 
-    // Không cần định nghĩa RoomFacilityKey ở đây
-
     @Embeddable
     @Getter
     @Setter
     @AllArgsConstructor
     @NoArgsConstructor
-    public class RoomFacilityKey implements Serializable {
+    public static class RoomFacilityKey implements Serializable {
 
         @Column(name = "Room_ID")
         private int roomId;
 
         @Column(name = "Facility_ID")
         private int facilityId;
+        
+        // Bạn có thể thêm equals và hashCode nếu cần
     }
 }
+
 
 
