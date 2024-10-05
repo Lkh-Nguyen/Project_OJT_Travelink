@@ -42,7 +42,19 @@ public class CustomerController {
         model.addAttribute("customer", customer);
         return "Customer_Home"; // Return the home view
     }
-
+    @GetMapping("/SearchHotel")
+    public String SearchHotel(HttpSession session, Model model) {
+        Account customer = (Account) session.getAttribute("customer");
+        if (customer == null) {
+            return "redirect:/CustomerLoginRegister"; // Redirect if not logged in
+        }
+        model.addAttribute("customer", customer);
+        return "Search_Hotel"; // Return the home view
+    }
+    // @GetMapping("/SearchHotel")
+    // public String SearchHotel() {
+    //     return "Search_Hotel"; 
+    // }
     @GetMapping("/CustomerLoginRegister")
     public String customerLoginRegister() {
         return "Customer_Login_Register"; // Trả về trang login/register
