@@ -99,6 +99,7 @@ public class CustomerService {
         return customerRepository.save(newAccount);
     }
 
+    
     //Update Avatar Of Customer
     public void updateAvatarUrl(String email, String imageUrl) {
         Account account = customerRepository.findByEmail(email);

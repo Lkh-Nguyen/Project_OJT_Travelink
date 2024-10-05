@@ -1,24 +1,22 @@
 package com.example.travelink.service;
 
-import org.springframework.stereotype.Service;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import com.example.travelink.model.Hotel;
 import com.example.travelink.repository.HotelRepository;
 
-import lombok.AllArgsConstructor;
-
-import java.util.*;
-
 @Service
-@AllArgsConstructor
 public class HotelService {
-    
-    private final HotelRepository hotelRepository;
+    @Autowired
+    private HotelRepository hotelRepository;
 
-    //Get All Hotel
-    public List<Hotel> findAll(){
+    public List<Hotel> getAllHotel() {
         return hotelRepository.findAll();
     }
 
-
+    public Hotel getHotelById(int hotelId) {
+        return hotelRepository.findById(hotelId).orElse(null);
+    }
 }

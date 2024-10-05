@@ -65,7 +65,7 @@ public class UpdateInformationCustomerController {
 
     @GetMapping("/cancel")
     public String cancel() {
-        return "redirect:/CustomerViewInformation";
+        return "redirect:/ViewInformationCustomer";
     }
 
 }
