@@ -90,6 +90,7 @@ public class FavouriteHotelController {
         return "View_All_Hotel";
     }
 
+    //Method add favourite hotel
     @PostMapping("/AddFavouriteHotel")
     public String addFavouriteHotel(@RequestParam int hotelID, RedirectAttributes redirectAttributes,
             HttpSession session) {
