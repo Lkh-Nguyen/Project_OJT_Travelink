@@ -49,12 +49,9 @@ public class CustomerController {
             return "redirect:/CustomerLoginRegister"; // Redirect if not logged in
         }
         model.addAttribute("customer", customer);
-        return "Search_Hotel"; // Return the home view
+        return "Search_Hotel"; 
     }
-    // @GetMapping("/SearchHotel")
-    // public String SearchHotel() {
-    //     return "Search_Hotel"; 
-    // }
+ 
     @GetMapping("/CustomerLoginRegister")
     public String customerLoginRegister() {
         return "Customer_Login_Register"; // Trả về trang login/register

@@ -1,34 +1,39 @@
 <!doctype html>
-<html lang="en">
-<html xmlns:th="http://www.thymeleaf.org">
-
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Elixir - Bootstrap Template</title>
     <link rel="icon" href="img_Home/logo.png">
+    
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
+    
+    <!-- Remixicon -->
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    
+    <!-- Fancybox CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css">
+    
+    <!-- AOS CSS -->
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="css/Customer_Home.css">
-</head>
-
-<body data-bs-spy="scroll" data-bs-target=".navbar">
-
-    <div th:replace="Customer_Header :: header"></div>
-
+    
+    <!-- Custom Styles -->
     <style>
         .booking {
-            transition: background-color 0.5s ease, border-color 0.5s ease, color 0.5s ease; /* Increased duration for smoother transition */
-            animation: float 3s ease-in-out infinite; /* Apply the floating animation */
+            transition: background-color 0.5s ease, border-color 0.5s ease, color 0.5s ease;
+            animation: float 3s ease-in-out infinite;
         }
 
         .booking:hover {
-            background-color: #17a2b8; /* Example of a property that will change smoothly */
-            border-color: #17a2b8; /* Change border color to match the new background */
-            color: #fff; /* Change text color for better contrast */
+            background-color: #17a2b8;
+            border-color: #17a2b8;
+            color: #fff;
         }
+
         @keyframes float {
             0%, 100% {
                 transform: translateY(0);
@@ -37,11 +42,13 @@
                 transform: translateY(-10px);
             }
         }
+
         .booking__container .btn {
             padding: 1rem;
             font-size: 1rem;
         }
-        .booking__container select{
+
+        .booking__container select {
             width: 100%;
             padding: 10px 0;
             font-size: 1rem;
@@ -50,10 +57,12 @@
             border-bottom: 1px solid var(--primary-color);
             color: var(--text-dark);
         }
-        .booking__container select:focus~label{
+
+        .booking__container select:focus ~ label {
             font-size: 0.8rem;
             top: 0;
         }
+
         .input__group input:focus + label,
         .input__group input:not(:placeholder-shown) + label,
         .input__group select:focus + label,
@@ -62,36 +71,19 @@
             font-size: 0.8rem;
             color: #333;
         }
+
+    
     </style>
 </head>
-<body>
-    <!-- <c:if test="${requestScope.successLogin != null}">
-        <div id="status-message" style="background-color: rgb(233,251,233);" class="hidden">
-            <div style="display: flex">
-                <div style="width: 20%">
-                    <i class='bx bxs-check-circle' style="font-size: 50px;color:green;margin-top: 0px"></i>
-                </div>
-                <div style="width: 80%;height: 100%; text-align: start">
-                    <h3 style="color:green;margin-top: 5px;font-weight: 550 ">Success</h3>
-                    <p style="color: black;font-size: 14px">${requestScope.successLogin}</p>
-                </div>
-            </div>           
-        </div>
-    </c:if>
-    <c:if test="${requestScope.loggout != null}">
-        <div id="status-message" style="background-color: rgb(233,251,233);" class="hidden">
-            <div style="display: flex">
-                <div style="width: 20%">
-                    <i class='bx bxs-check-circle' style="font-size: 50px;color:green;margin-top: 0px"></i>
-                </div>
-                <div style="width: 80%; text-align: start;">
-                    <h3 style="color:green;margin-top: 5px;font-weight: 550;margin-bottom: 0px;">Success</h3>
-                    <p style="color: black;font-size: 14px">${loggout}</p>
-                </div>
-            </div>           
-        </div>
-    </c:if> -->
+<body data-bs-spy="scroll" data-bs-target=".navbar">
+
+    <!-- Header -->
+    <div th:replace="Customer_Header :: header"></div>
+
+    <!-- Overlay -->
     <div class="overlay"></div>
+
+    <!-- Header Section with Carousel -->
     <header class="section__container header__container" data-aos="flip-up">
         <h1 class="section__header">Find And Book<br />A Great Experience</h1>
         <div style="position: relative">
@@ -99,9 +91,9 @@
                     bottom: 13rem;
                     left: 9rem;
                     z-index: 1;
-                    "
-                    >
-                <a href="#search123" style="color:white">Booking now</a></button>
+                    ">
+                <a href="#search123" style="color:white">Booking now</a>
+            </button>
             <div id="carouselExampleIndicators" class="carousel slide">
                 <div class="carousel-indicators">
                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -130,7 +122,8 @@
             </div>
         </div>
     </header>
-    <!--        Best hotel-->
+
+    <!-- Best Hotels Section -->
     <section class="section__container travellers__container" data-aos="fade-up">
         <h2 class="section__header">Best hotels of the month</h2>
         <div class="travellers__grid">
@@ -149,7 +142,8 @@
             </c:forEach>
         </div>
     </section>
-    <!--        Search-->
+
+    <!-- Search Section -->
     <section class="section__container booking__container" data-aos="fade-up" id="search123">
         <form method="get" action="search">
             <!--                    Location-->
@@ -157,13 +151,11 @@
                 <span><i class="ri-map-pin-line"></i></span>
                 <div class="input__content">
                     <div class="input__group">
-                        <select name="location">
-                            <option>Location</option>
-                            <<c:forEach var="location" items="${requestScope.locationList}">
-                                <option value="${location.name}">${location.name}</option>
-                            </c:forEach>
+                        <!-- Integrated Tỉnh Thành Dropdown -->
+                        <select id="tinh" name="tinh" title="Chọn Tỉnh Thành" required>
+                            <option value="0">Location</option>
                         </select>
-                        <label>Location</label>
+                        <label for="tinh">Location</label>
                     </div>
                     <p>Where are you going?</p>
                 </div>
@@ -216,9 +208,10 @@
                 <button class="btn btn-primary fw-bold text-center" style="border-radius: 10px; margin-top:30px;">Search <i class="ri-search-line"></i></button>
             </div>  
         </form>
-    </section>  
+    </section>
 
-    <section id = "about" class="section__container plan__container" data-aos="fade-up">
+    <!-- About Section -->
+    <section id="about" class="section__container plan__container" data-aos="fade-up">
         <p class="subheader">TRAVEL SUPPORT</p>
         <h2 class="section__header">Plan your travel with confidence</h2>
         <p class="description">
@@ -227,21 +220,27 @@
         </p>
         <div class="plan__grid">
             <div class="plan__content">
-                <span class="number">01</span>
-                <h4>Essential Amenities for Your Stay</h4>
-                <p>
-                    Make the most of your stay with these essential amenities to ensure comfort and convenience.
-                </p>
-                <span class="number">02</span>
-                <h4>Tailored Concierge Services</h4>
-                <p>
-                    Experience personalized service with our tailored concierge services, catering to your specific needs and preferences throughout your stay.
-                </p>
-                <span class="number">03</span>
-                <h4>Destination-Specific Stay Guidelines</h4>
-                <p>
-                    Stay informed and plan your itinerary effortlessly with our detailed information on destination-specific stay guidelines. Whether you're exploring a bustling city or a serene countryside, we provide insights to enhance your experience and make your stay enjoyable.
-                </p>
+                <div class="plan__item">
+                    <span class="number">01</span>
+                    <h4>Essential Amenities for Your Stay</h4>
+                    <p>
+                        Make the most of your stay with these essential amenities to ensure comfort and convenience.
+                    </p>
+                </div>
+                <div class="plan__item">
+                    <span class="number">02</span>
+                    <h4>Tailored Concierge Services</h4>
+                    <p>
+                        Experience personalized service with our tailored concierge services, catering to your specific needs and preferences throughout your stay.
+                    </p>
+                </div>
+                <div class="plan__item">
+                    <span class="number">03</span>
+                    <h4>Destination-Specific Stay Guidelines</h4>
+                    <p>
+                        Stay informed and plan your itinerary effortlessly with our detailed information on destination-specific stay guidelines. Whether you're exploring a bustling city or a serene countryside, we provide insights to enhance your experience and make your stay enjoyable.
+                    </p>
+                </div>
             </div>
             <div class="plan__image">
                 <img src="img_Home/hotel-1.webp" alt="plan" />
@@ -251,6 +250,7 @@
         </div>
     </section>
 
+    <!-- Memories Section -->
     <section class="memories" data-aos="fade-up">
         <div class="section__container memories__container">
             <div class="memories__header">
@@ -261,7 +261,7 @@
             <div class="memories__grid">
                 <div class="memories__card">
                     <span><i class="ri-calendar-2-line"></i></span>
-                    <h4>Book & relax</h4>
+                    <h4>Book & Relax</h4>
                     <p>
                         With "Book and Relax," you can sit back and enjoy the
                         vacation while we take care of everything else.
@@ -287,6 +287,7 @@
         </div>
     </section>
 
+    <!-- Lounge Section -->
     <section class="section__container lounge__container" data-aos="fade-up">
         <div class="lounge__image">
             <img src="img_Home/Decor - 1.jfif" alt="lounge" />
@@ -311,8 +312,7 @@
                     </p>
                 </div>
                 <div class="lounge__details">
-                    <h4>
-                        The Role of Color and Texture</h4>
+                    <h4>The Role of Color and Texture</h4>
                     <p>
                         Rich colors like emerald green and royal blue, complemented by metallic accents, create a sense of grandeur. 
                         Combining plush fabrics like velvet with hard materials like marble adds depth and a luxurious feel.
@@ -329,27 +329,58 @@
             </div>
         </div>
     </section>
+
+    <!-- Dialogflow Messenger -->
     <df-messenger
-intent="WELCOME"
-chat-title="Travelink_Chat"
-agent-id="779952e3-fca1-446e-bcc4-a42c9cae5acb"
-language-code="vi"
-></df-messenger>
+        intent="WELCOME"
+        chat-title="Travelink_Chat"
+        agent-id="779952e3-fca1-446e-bcc4-a42c9cae5acb"
+        language-code="vi">
+    </df-messenger>
 
-     <!-- Include footer -->
-     <div th:replace="Customer_Footer :: footer"></div>
+    <!-- Footer -->
+    <div th:replace="Customer_Footer :: footer"></div>
 
-
-
-
-
+    <!-- Scripts -->
+    
+    <!-- jQuery (Ensure it's included only once) -->
+    <script src="https://esgoo.net/scripts/jquery.js"></script>
+    
+    <!-- Bootstrap Bundle JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Fancybox JS -->
     <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+    
+    <!-- AOS JS -->
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    
+    <!-- Custom JS -->
     <script src="js/Customer_Home.js"></script>
 
+    <!-- jQuery Script to Populate Tỉnh Thành Dropdown -->
     <script>
-          // Hàm để chèn nội dung header và footer
+        $(document).ready(function() {
+            // Fetch Tỉnh Thành (Provinces/Cities)
+            $.getJSON('https://esgoo.net/api-tinhthanh/1/0.htm', function(data_tinh) {	       
+                if (data_tinh.error == 0) {
+                    $.each(data_tinh.data, function(key_tinh, val_tinh) {
+                        $("#tinh").append('<option value="' + val_tinh.id + '">' + val_tinh.full_name + '</option>');
+                    });
+                }
+            });
+
+            // Optional: Handle selection change if needed
+            // $("#tinh").change(function() {
+            //     var selectedTinh = $(this).val();
+            //     // You can perform actions based on the selected province/city here
+            // });
+        });
+    </script>
+
+    <!-- Load Header and Footer (Optional if Thymeleaf handles it) -->
+    <script>
+        // Function to load HTML content into elements
         function loadHTML(elementId, filePath) {
             fetch(filePath)
                 .then(response => response.text())
@@ -358,10 +389,13 @@ language-code="vi"
                 });
         }
 
-        // Gọi hàm để chèn header và footer
+        // Load Header and Footer if not using Thymeleaf's th:replace
+        // Uncomment if necessary
+        /*
         loadHTML('Customer_Header', 'Customer_Header.html');
         loadHTML('Customer_Footer', 'Customer_Footer.html');
+        */
     </script>
+    
 </body>
-
 </html>
