@@ -19,4 +19,5 @@ public class HotelService {
     public Hotel getHotelById(int hotelId) {
         return hotelRepository.findById(hotelId).orElse(null);
     }
+
 }

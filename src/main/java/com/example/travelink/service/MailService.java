@@ -46,4 +46,27 @@ public class MailService {
         // Send the email
         javaMailSender.send(mimeMessage);
     }
+
+    public void sendSetPassWordEmail(String to, String subject, String verificationUrl) throws MessagingException {
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
+
+        // Set email details
+        helper.setFrom(fromMail);
+        helper.setTo(to);
+        helper.setSubject(subject);
+
+        // Create the email body using Thymeleaf template
+        Context context = new Context();
+        context.setVariable("forgotPasswordUrl", verificationUrl); // Pass the verification link to the template
+        String htmlContent = templateEngine.process("Forgot_Password", context); // 'verification-email' is the
+                                                                                 // Thymeleaf template name
+
+        // Set the content as HTML
+        helper.setText(htmlContent, true);
+
+        // Send the email
+        javaMailSender.send(mimeMessage);
+    }
+
 }

@@ -14,10 +14,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.travelink.dto.AccountDTO;
 import com.example.travelink.model.Account;
 import com.example.travelink.model.VerificationToken;
+import com.example.travelink.repository.CustomerRepository;
 import com.example.travelink.service.CustomerService;
 import com.example.travelink.service.MailService;
 import com.example.travelink.service.VerificationTokenService;
 
+import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -29,6 +31,8 @@ public class CustomerController {
     private MailService mailService;
     @Autowired
     private VerificationTokenService verificationTokenService;
+    @Autowired
+    private CustomerRepository customerRepository;
     @SuppressWarnings("unused")
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -41,6 +45,29 @@ public class CustomerController {
         }
         model.addAttribute("customer", customer);
         return "Customer_Home"; // Return the home view
+    }
+
+    @GetMapping("/ResetPassword")
+    public String ResetPassword(@RequestParam("email") String email, Model model) {
+        model.addAttribute("email", email);
+
+        return "ResetPassword";
+    }
+
+    @PostMapping("/resetPasswordController")
+    public String resetPasswordController(@RequestParam("email") String email,
+            @RequestParam("newPassword") String newPassword,
+            @RequestParam("confirmPassword") String confirmPassword) {
+        Account account = customerRepository.findByEmail(email);
+        if (newPassword.contains(confirmPassword)) {
+            account.setPassword(newPassword);
+            customerService.updateCustomerInformation(account);
+            return "redirect:/CustomerLoginRegister";
+        } else {
+
+            return "ResetPassword";
+        }
+
     }
 
     @GetMapping("/CustomerLoginRegister")
@@ -153,4 +180,23 @@ public class CustomerController {
 
     // return "Customer_Hotel_Detail"; // Trả về trang xác minh mã
     // }
+    @PostMapping("/forgot")
+    public String forgetPassword(@RequestParam("email") String email, RedirectAttributes redirectAttributes) {
+
+        if (customerService.getCustomerByEmail(email) == null) {
+            redirectAttributes.addFlashAttribute("message", "Email is invalid");
+            return "Customer_Forget_Password";
+        } else {
+            String verificationUrl = "http://localhost:8080/ResetPassword?email=" + email;
+            try {
+                mailService.sendSetPassWordEmail(email, email, verificationUrl);
+            } catch (MessagingException e) {
+                // TODO Auto-generated catch blocks
+                e.printStackTrace();
+            }
+            return "Customer_Forget_Password";
+
+        }
+
+    }
 }
