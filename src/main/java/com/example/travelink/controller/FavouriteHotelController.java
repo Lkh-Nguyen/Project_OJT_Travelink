@@ -34,9 +34,6 @@ public class FavouriteHotelController {
     private final FavouriteHotelService favouriteHotelService;
 
     @Autowired
-    private final HotelRepository hotelRepository;
-
-    @Autowired
     private final FavouriteHotelRepository favouriteHotelRepository;
 
     @Autowired
@@ -77,19 +74,6 @@ public class FavouriteHotelController {
         return "Customer_Favourite_Hotel";
     }
 
-    @GetMapping("/ViewAllHotel")
-    public String viewAllHotels(Model model, HttpSession session) {
-        // Thêm mã để lấy danh sách khách sạn và thêm vào model
-        Account customer = (Account) session.getAttribute("customer");
-
-        List<Hotel> hotels = hotelRepository.findAll();
-
-        model.addAttribute("customer", customer);
-        model.addAttribute("hotels", hotels);
-
-        return "View_All_Hotel";
-    }
-
     //Method add favourite hotel
     @PostMapping("/AddFavouriteHotel")
     public String addFavouriteHotel(@RequestParam int hotelID, RedirectAttributes redirectAttributes,
@@ -99,11 +83,11 @@ public class FavouriteHotelController {
 
         if (customer == null) {
             redirectAttributes.addFlashAttribute("error", "Vui lòng đăng nhập trước!");
-            return "redirect:/ViewAllHotel";
+            return "redirect:/CustomerHome";
         }
 
         if (favouriteHotelRepository.existsByHotel_HotelIdAndAccount_AccountId(hotelID, hotelID)) {
-            return "redirect:/ViewAllHotel";
+            return "redirect:/CustomerHome";
         }
 
         int accountID = customer.getAccountId();
@@ -112,6 +96,7 @@ public class FavouriteHotelController {
         return "redirect:/CustomerFavouriteHotel";
     }
 
+    //Method delete favourite hotel
     @PostMapping("/DeleteFavouriteHotel")
     public String deleteFavouriteHotel(@RequestParam int hotelID, RedirectAttributes redirectAttributes,
             HttpSession session) {
@@ -126,7 +111,7 @@ public class FavouriteHotelController {
         favouriteHotelService.deleteFavouriteHotel(hotelID, accountID);
 
         if (favouriteHotelRepository.existsByHotel_HotelIdAndAccount_AccountId(hotelID, accountID)) {
-            return "redirect:/ViewAllHotel";
+            return "redirect:/CustomerHotelDetail";
         } else {
             return "redirect:/CustomerFavouriteHotel"; 
         }

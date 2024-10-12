@@ -152,7 +152,10 @@
                                             class="text-warning align-items-center justify-content-center"
                                             style="font-size: 20px;">★</span> <!-- Hiển thị số sao vàng -->
                                     </h3>
-                                    <p><strong>Description:</strong> <span th:text="${hotel.description}"></span></p>
+                                    <p><strong>Description:</strong> <span th:text="${hotel.description}"></span> -
+                                        <span><a th:href="@{/CustomerHotelDetail(hotelId=${hotel.hotelId})}">Show
+                                                Details</a></span></p>
+
                                     <p><strong>Address:</strong> <span th:text="${hotel.address}"></span> - <span><a
                                                 href="https://www.google.com/maps/@15.9824648,108.2496147,14z?entry=ttu&g_ep=EgoyMDI0MDkyOS4wIKXMDSoASAFQAw%3D%3D">Show
                                                 on map</a></span></p>

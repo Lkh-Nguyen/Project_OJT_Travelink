@@ -44,10 +44,10 @@ public class CustomerHotelDetailController {
         List<HotelImage> hotelImages = hotelImageService.GetHotelInformationByHotelId(hotelId);
         List<Room> Room = roomService.getRoomsByHotelId(hotelId);
         List<HotelFacility> hotelFacilities = hotelFacilityService.getFacilitiesByHotelId(hotelId);
-        if (hotel == null) {
-            model.addAttribute("error", "Khách sạn không tồn tại.");
-            return "errorPage"; // Chuyển đến trang lỗi
-        }
+        // if (hotel == null) {
+        //     model.addAttribute("error", "Khách sạn không tồn tại.");
+        //     return "errorPage"; // Chuyển đến trang lỗi
+        // }
         Map<Room, List<RoomBed>> roomBedMap = new HashMap<>();
         for (Room room : Room) {
             List<RoomBed> roomBeds = roomBedService.getRoomBedsByRoomId(room.getRoomId());
@@ -58,7 +58,7 @@ public class CustomerHotelDetailController {
             List<RoomImage> images = roomImageService.getRoomImagesByRoomId(room.getRoomId());
             roomImagesMap.put(room.getRoomId(), images);
         }
-
+        //I dont know the fuck they text
         model.addAttribute("hotel", hotel);
         model.addAttribute("hotelImages", hotelImages);
         model.addAttribute("Room", Room);
