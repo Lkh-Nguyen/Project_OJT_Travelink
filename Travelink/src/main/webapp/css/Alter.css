@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+.hidden {
+    display: none;
+}
+
+/* Thiết lập kiểu dáng cho thông báo */
+#status-message {
+    user-select: none;
+    font-family: 'Montserrat', sans-serif;
+    padding: 5px 5px;
+    position: fixed;
+    top: -130px; /* Ẩn ngoài màn hình */
+    margin-top: 70px;
+    left: 90%;
+    transform: translateX(-50%);
+    width: 330px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    transition: top 1s ease-in-out, opacity 0.5s ease-in-out; /* Hiệu ứng chuyển động */
+    z-index: 9999; /* Đảm bảo thông báo nằm trên cùng */
+}
+
+/* Thiết lập trạng thái ẩn */
+.hidden {
+    opacity: 0;
+}
+

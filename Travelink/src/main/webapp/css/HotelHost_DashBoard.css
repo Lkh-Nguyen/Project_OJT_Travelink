@@ -1,0 +1,66 @@
+#cardFirst {
+    transition: 0.5s ease;
+    background-image: linear-gradient(to right ,#6699ff,#333399);
+    color:lightgoldenrodyellow;
+    border-radius: 30px;
+}
+#cardFirst:hover {
+    transition: 0.5s ease;
+    transform: translateY(-5px);
+}
+.btn-change {
+    position: relative; /* Cho phép xử lý vị trí tương đối */
+    margin-top: 15px;
+    width: 50px;
+    height: 160px;
+    background-image: linear-gradient(to right ,#ffff66,#b38600);
+    margin-left: 120px;
+    border-radius: 35px;
+    text-align: center;
+    transition: 0.5s ease;
+}
+
+.rotate-text {
+    position: absolute; /* Đặt vị trí tuyệt đối */
+    top: 50%; /* Đưa nó lên giữa theo chiều dọc */
+    left: 50%; /* Đưa nó vào giữa theo chiều ngang */
+    transform: translate(-50%, -50%) rotate(-90deg); /* Xoay chữ đi -90 độ và căn giữa */
+    color: white;
+    margin: 0; /* Xóa margin mặc định của <p> */
+    padding: 0; /* Xóa padding mặc định của <p> */
+}
+
+.btn-change:hover {
+    transition: 0.5s ease;
+    transform: translateX(-5px);
+}
+
+.card {
+    border-radius: 30px;
+}
+
+/* Ensure transition for smooth effect */
+.hover-row {
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Hover effect */
+.hover-row:hover {
+    background-color: var(--bs-secondary);
+    transform: translateY(-5px);
+}
+#pieChart, #myChart {
+    width: 100% !important;
+    height: 100% !important;
+}
+.custom-card {
+    max-width: fit-content; /* Độ rộng tối đa là phù hợp với nội dung */
+    padding: 10px; /* Khoảng cách giữa nội dung và viền */
+    margin: auto; /* Canh giữa card */
+}
+#average {
+    height: 40px;
+}
+#containTable {
+    height: 1000px;
+}

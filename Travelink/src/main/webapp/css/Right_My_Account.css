@@ -1,0 +1,166 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+/*Right*/
+*{
+    font-family: 'Montserrat', sans-serif;
+}
+#right{
+    border-radius: 10px;
+}
+#right h1{
+    margin-top: -7px;
+    font-size: 30px;
+}
+#list_right{
+    width: 100%;
+    border-bottom: 2px solid grey;
+}
+#list_right ul{
+    margin-left:-20px;
+    display: flex;
+}
+#list_right ul li{
+    font-size: 17px;
+    margin-right: 20px;
+    list-style: none;
+    font-weight: bold;
+}
+
+#person_data{
+    margin-top: 20px;
+    border-radius: 10px;
+    width: 760px;
+    height: 600px;
+    border: 1px solid grey;
+    padding-bottom: 10px;
+    box-shadow: 5px 5px 5px grey;
+}
+#person_data1{
+    margin-top: 20px;
+    border-radius: 10px;
+    width: 760px;
+    height:300px;
+    border: 1px solid grey;
+    padding-bottom: 10px;
+    box-shadow: 5px 5px 5px grey;
+}
+#person_data2{
+    margin-top: 20px;
+    border-radius: 10px;
+    width: 760px;
+    height: 100px;
+    border: 1px solid grey;
+    padding-bottom: 10px;
+    box-shadow: 5px 5px 5px grey;
+}
+#pd_h2_content{
+    display: flex;
+    padding-left: 20px;
+}
+#pd_h2_content p{
+    font-size: 15px;
+}
+#pd_h2_content input{
+    margin-left: 20px;
+    margin-top:10px;
+    width: 70px;
+    height: 25px;
+    border:0px;
+    border-radius: 5px;
+    background-color: red;
+    color:white;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+#pd_h2_content input:hover{
+    background-color: white;
+    color: red;
+    border: 1px solid black;
+}
+
+#pd_h2{
+    display: flex;
+    text-align: center;
+    justify-items: center;
+    padding-left: 20px;
+    height: 50px;
+    width: auto;
+    border-bottom: 1px solid grey;
+}
+#pd_data{
+    padding-left: 20px;
+}
+#pd_h2 h2{
+    font-size: 20px;
+}
+.pd_flex{
+    display: flex;
+}
+.flex1{
+    margin-right:40px;
+}
+.flex1 input{ 
+    height: 30px;
+    width: 320px;
+}
+.pd_button{
+    float: right;
+    
+    margin-right: 20px;
+}
+.pd_button button{
+    width: 100px;
+    height: 40px;
+    background-color: rgb(247,249,250);
+    margin-right: 20px;
+    border: 0px;
+    color: rgb(1,148,243);
+    border-radius: 5px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 30px;
+}
+.pd_button button:hover{
+    background-color: rgb(242,243,243);
+}
+.pd_button button:active{
+    border: 5px solid rgb(1,148,243);
+}
+.pd_button input{
+    width: 100px;
+    height: 40px;
+    border:0px;
+    border-radius: 5px;
+    background-color: rgb(1,148,243);
+    color:white;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.pd_button input:hover{
+    background-color: rgb(0,124,232);
+}
+.pd_button input:active{
+    border: 5px solid rgb(1,148,243);
+}
+
+#li1{
+    user-select: none;
+    color: rgb(1,148,243);
+    margin-bottom: -18px;
+    border-bottom: 2px solid rgb(1,148,243);
+    
+}
+#li2 a{
+    color:grey;
+    user-select: none;
+    cursor: pointer;
+    text-decoration: none;
+}
+#li2:active{
+   color: rgb(242,243,243);
+   
+}
+

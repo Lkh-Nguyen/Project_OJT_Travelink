@@ -1,0 +1,43 @@
+#forgetPassword{
+    color: black;
+    text-decoration: none;
+}
+
+#forgetPassword:hover{
+    color:blue;
+}
+
+#loginRegister{
+    color: #393f81;
+    text-decoration: none
+}
+
+#loginRegister:hover{
+    color: blue;
+}
+
+.contain-a-button {
+    position: fixed; /* Vị trí cố định trên màn hình */
+    top: 20px; /* Khoảng cách từ đỉnh màn hình xuống */
+    left: 20px; /* Khoảng cách từ bên trái màn hình sang phải */
+    z-index: 1000; /* Độ sâu của phần tử trên màn hình */
+}
+
+.a-button {
+    text-decoration: none;
+    padding: 10px 15px;
+    background-color: #f0f0f0;
+    color: black;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+}
+
+.a-button:hover {
+    color: rgb(48, 48, 216);
+}
+
+.fa-arrow-left {
+    margin-right: 5px;
+}

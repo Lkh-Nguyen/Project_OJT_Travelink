@@ -1,0 +1,31 @@
+body {
+    background-color: #f8f9fa;
+}
+.room-card {
+    margin-bottom: 15px;
+}
+.card-header {
+    background-color: #f8f9fa;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+.form-check-label {
+    font-size: 1em;
+}
+.form-check-label + label {
+    font-size: 1em;
+    color: #6c757d;
+}
+.card-body {
+    padding: 1rem 1.25rem;
+}
+.btn-outline-secondary {
+    width: 100%;
+}
+
+.room-card {
+    transition: transform 0.2s ease-in-out; /* Thêm hiệu ứng chuyển động mượt mà */
+}
+.room-card:hover {
+    transform: scale(1.05); /* Phóng to thẻ card khi hover */
+}

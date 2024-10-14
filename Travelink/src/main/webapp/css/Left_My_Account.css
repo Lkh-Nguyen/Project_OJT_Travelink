@@ -1,0 +1,167 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+*{
+    font-family: 'Montserrat', sans-serif;
+}
+#mid_container{
+    clear: both;
+    margin: 30px 200px;
+    display: flex;
+}
+
+#left{
+    margin-top: 50px;
+    border-radius: 10px;
+    width: auto;
+    height: 420px;
+    border: 1px solid grey;
+    margin-right: 200px;
+    padding-bottom: 10px;
+    box-shadow: 5px 5px 5px grey;
+}
+#header_left{
+    padding-bottom: 20px;
+    padding-top: 20px;
+    padding-left: 20px;
+    display: flex;
+    border-bottom:  1px solid grey;
+}
+#header_left img{
+    height: 65px;
+    width: 65px;
+    border-radius: 100px;
+}
+#header_left h1{
+    margin-top: 5px;
+    font-size: 19px;
+    white-space: nowrap;         /* Ngăn chặn quá trình xuống dòng */
+    overflow: hidden;            /* Ẩn phần vượt quá khung chứa */
+    text-overflow: ellipsis;     /* Hiển thị dấu "..." khi vượt quá */
+    max-width: 200px;
+}
+#header_left p{
+    margin-top: -12px;
+    font-size: 14px;
+}
+
+#header_list{
+    padding-top: 10px;
+}
+.list0{
+    user-select: none; /* Ngăn chặn người dùng bôi đậm nội dung */
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    width: 300px;
+    height: 50px;
+    padding-left: 20px;
+}
+.list0 i{
+    font-size: 23px;
+    margin-right: 15px;
+    color: rgb(1,148,243);
+    font-weight: 400;
+}
+.list0 b{
+    font-size: 23px;
+    color: black;
+    font-weight: 400;
+}
+.list0 a{
+    text-decoration: none;
+}
+.list0:hover{
+    background-color: rgb(247,249,250);
+    cursor: pointer;
+}
+.list0:active, .list0:active b {
+    background-color: rgb(247, 249, 250);
+    color: grey;
+}
+
+
+.list1{
+    user-select: none; /* Ngăn chặn người dùng bôi đậm nội dung */
+    pointer-events: none;
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    width: 300px;
+    height: 50px;
+    padding-left: 20px;
+    background-color: rgb(1,148,243);
+}
+.list1 i{
+    font-size: 23px;
+    margin-right: 15px;
+    color: white;
+    font-weight: 400;
+}
+.list1 b{
+    font-size: 23px;
+    color: white;
+    font-weight: 400;
+}
+.list1 a{
+    text-decoration: none;
+}
+
+
+/*Loggout*/
+
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 999;
+}
+
+#logoutConfirm {
+    display: none; /* Ẩn mặc định */
+    border-radius: 10px;
+    width: 280px;
+    position: fixed;
+    bottom: -300px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    transition: bottom 0.5s ease;
+}
+#logoutConfirm h2{
+    margin-top:-10px;
+}
+#logoutConfirm p{
+    font-size: 20px;
+    color: grey;
+}
+#logoutConfirm button{
+    background-color:rgb(247,249,250);
+    border: 0px;
+    margin-bottom: 15px;
+    width: 100%;
+    height: 40px;
+}
+#logoutConfirm button:hover{
+    background-color:rgb(242,243,243);
+}
+#logoutConfirm button:active{
+    border: 3px solid rgb(1,148,243);
+}
+#logoutConfirm button a{
+    font-size: 17px;
+    user-select: none;
+    color: rgb(1,148,243);
+    text-decoration: none;
+}
+
+#logoutConfirm.active {
+    bottom: 50%;
+    transform: translate(-50%, 50%);
+}

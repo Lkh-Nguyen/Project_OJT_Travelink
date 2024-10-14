@@ -1,0 +1,51 @@
+#titleHotel:hover {
+    transition: 0.5s ease;
+    background-color: lightgray;
+    color: whitesmoke;
+    transform: translateY(-5px);
+}
+#titleHotel {
+    transition: 0.5s ease;
+}
+.nav__logo {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+.nav__logo a{
+    text-decoration: none;
+}
+.nav__logo a:active{
+
+    color:blue;
+}
+span{
+    color:var(--primary-color-dark);
+    padding-top: 2px;
+}
+#containIcon {
+    border-right: 0.5px solid lightgray;
+}
+#rowFirst{
+    background-image: linear-gradient(to right ,#3366ff,#000080);
+}
+#cardFist {
+    height: 300px;
+    
+}
+#cardBelow:hover {
+    transition: 0.5s ease;
+    transform: translateY(-10px);
+    /*transform: scale(1.1);*/
+}
+#cardBelow{
+    transition: 0.5s ease;
+}
+.card-scale {
+    transition: transform 0.3s ease;
+}
+
+.card-scale-active {
+    transform: scale(1.1);
+}
+

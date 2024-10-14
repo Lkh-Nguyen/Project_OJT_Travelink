@@ -1,10 +1,10 @@
 ﻿-- Create the Travelink database
 CREATE DATABASE Travelink;
-
+GO
 
 -- Use the Travelink database
 USE Travelink;
-
+GO
 
 -- Create the Province table 
 CREATE TABLE Province (

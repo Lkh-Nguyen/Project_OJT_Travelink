@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+*{
+    font-family: 'Montserrat', sans-serif;
+}
+#right{
+    border-radius: 10px;
+    height: 710px;
+}
+#right h1{
+    margin-top: -7px;
+    font-size: 30px;
+}
+#pd_h2{
+    display: flex;
+    text-align: center;
+    justify-items: center;
+    padding-left: 20px;
+    height: 50px;
+    width: auto;
+    border-bottom: 1px solid grey;
+}
+#pd_h2 h2{
+    font-size: 20px;
+}
+#data_img{
+    margin-top: 20px;
+    border-radius: 10px;
+    width: 760px;
+    height: 460px;
+    border: 1px solid grey;
+    padding-bottom: 10px;
+    box-shadow: 5px 5px 5px grey;
+}
+#edit_img{
+    text-align: center;
+    padding-top:20px;
+    padding-left: 20px;
+}
+
+#edit_img img{
+    width: 170px;
+    height: 170px;
+    border-radius: 50%;
+}
+#edit_img input{
+    margin-top: 20px;
+}
+#edit_img p{
+    margin-top:2px;
+    margin-bottom: 0px;
+}
+
+#edit_img button{
+    margin-top:10px;
+    user-select: none;
+    width: 100px;
+    height: 30px;
+    background-color: white;
+    border: 1px solid grey;
+    cursor: pointer;
+}
+#submit_Input{
+    margin-top:10px;
+    user-select: none;
+    width: 100px;
+    height: 30px;
+    background-color: white;
+    border: 1px solid grey;
+    cursor: pointer;
+}
+#edit_img button:hover{
+    background-color: rgb(250,250,250);
+}
+#submit_Input:hover{
+    background-color: rgb(250,250,250);
+}
+
+.pd_button{
+    float: right;
+    margin-right: 20px;
+}
+.pd_button button{
+    width: 100px;
+    height: 40px;
+    background-color: rgb(247,249,250);
+    margin-right: 20px;
+    border: 0px;
+    color: rgb(1,148,243);
+    border-radius: 5px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.pd_button button a{
+    color: rgb(1,148,243);
+}
+.pd_button button a:hover{
+    background-color: rgb(242,243,243);
+}
+.pd_button button a:active{
+    border: 5px solid rgb(1,148,243);
+}
+.pd_button input{
+    width: 100px;
+    height: 30px;
+    border:0px;
+    border-radius: 5px;
+    background-color: rgb(1,148,243);
+    color:white;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.pd_button input:hover{
+    background-color: rgb(0,124,232);
+}
+.pd_button input:active{
+    border: 5px solid rgb(1,148,243);
+}
+
+
+/*when submit upload file */
+#error-message {
+    margin-left: -5px;
+    display: none;
+    color: red;
+    margin-top: 10px;
+}
+
